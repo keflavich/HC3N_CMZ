@@ -1,5 +1,5 @@
 # Region file format: DS9 version 4.1
 global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
 galactic
-circle(359.98246,-0.067734765,16.150558")
-circle(359.98246,-0.067734765,41.469005")
+circle(359.98246,-0.067734765,16.150558") # text={50 km/s small}
+circle(359.98246,-0.067734765,41.469005") # text={50 km/s large}
