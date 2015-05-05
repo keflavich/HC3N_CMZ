@@ -1,5 +1,4 @@
 untitled.tex
-Images_cyano_3_2_from__.tex
 figures/Table1/Table1.png
 Models__.tex
 figures/simple_models/simple_models.png
@@ -8,3 +7,4 @@ figures/50_kms_large_fitted_hc3n.png
 figures/50_kms_small_fitted_hc3n.png
 figures/50_kms_large_fitted_hc3n_10-9.png
 figures/50_kms_small_fitted_hc3n_10-9.png
+Images_cyano_3_2_from__.tex
