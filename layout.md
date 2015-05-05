@@ -1,8 +1,12 @@
 untitled.tex
-Models__.tex
+figures/Table1/Table1.png
+section_Models__.tex
 figures/simple_models/simple_models.png
 Below_are_some_spectra_of__.tex
 figures/50_kms_large_fitted_hc3n.png
 figures/50_kms_small_fitted_hc3n.png
 figures/50_kms_large_fitted_hc3n_10-9.png
 figures/50_kms_small_fitted_hc3n_10-9.png
+section_Images__.tex
+figures/GBT_coverage/GBT_coverage.png
+figures/VLA_maps/VLA_maps.png
