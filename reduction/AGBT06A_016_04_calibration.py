@@ -3,15 +3,21 @@ from sdpy import makecube,make_off_template,calibrate_map_scans
 import numpy as np
 from astropy import units as u
 
+# Set up the prefix for the input filename and the output directory here
 prefix = 'AGBT06A_016_04'
 rootpath = '/Volumes/passport/gc_hc3n/'
+# Put in the observed zenith optical depth here
+tauz = 0.03
 filename = '{rootpath}{prefix}.raw.acs.fits'.format(prefix=prefix, rootpath=rootpath)
 filepyfits = pyfits.open(filename,memmap=True)
 datapfits = filepyfits[1].data
 dataarr = datapfits.DATA
 
 """
-In [22]: set(zip(sess.bintable.data['SAMPLER'], sess.bintable.data['FEED']))
+These are some examples of how you'd do "introspection" on the data (i.e.,
+figure out what feeds correspond to what frequencies)
+
+In [22]: set(zip(datapfits['SAMPLER'], datapfits['FEED']))
 Out[22]:
 {('A1', 1),
  ('A2', 2),
@@ -22,7 +28,7 @@ Out[22]:
  ('D7', 1),
  ('D8', 2)}
 
-In [105]: set(zip(sess.bintable.data['SAMPLER'], sess.bintable.data['FEED'], sess.bintable.data['CRVAL1']//1e6))
+In [105]: set(zip(datapfits['SAMPLER'], datapfits['FEED'], datapfits['CRVAL1']//1e6))
 Out[105]:
 {('A1', 1, 26259.0), # 
  ('A1', 1, 26262.0),
@@ -55,11 +61,14 @@ feeds = {
         3: [1,2]
         }
 """
+scans = list(set(zip(datapfits['SCAN'], datapfits['OBJECT'])))
 sorted([x for x,y in scans if y =='off1'])
 sorted([x for x,y in scans if y =='off2'])
 """
 
-#for obsmode,refscans,scanrange in zip(('DecLatMap','RALongMap','DecLatMap'),([9,54],[62,98],[108,140]),([9,54],[62,98],[108,140])):
+# Unfortunately, none of this can be determined automatically:
+# you need to give a list of the reference scans (which can be acquired
+# following the approach above) and the target names and the off position names
 for obsmode,refscans,scanrange,sourcename,offname in zip(
             ('RALongMap','DecLatMap','DecLatMap',),
             ([10, 13, 16, 19, 22, 25, 28, 31, 34],
@@ -79,6 +88,7 @@ for obsmode,refscans,scanrange,sourcename,offname in zip(
             ),
            ):
 
+    # You should not need to edit anything below here
 
     ref1,ref2 = sorted(refscans)[0],sorted(refscans)[-1]
 
@@ -89,6 +99,7 @@ for obsmode,refscans,scanrange,sourcename,offname in zip(
                                                                   prefix=prefix,
                                                                   rootpath=rootpath)
 
+            # This is entirely optional: leave it commented out
             # off_template = make_off_template.make_off(filename,
             #                                           scanrange=scanrange,
             #                                           sourcename=offname,
@@ -116,7 +127,7 @@ for obsmode,refscans,scanrange,sourcename,offname in zip(
                                                     sampler=sampler,
                                                     filepyfits=filepyfits,
                                                     datapfits=datapfits,
-                                                    tauz=0.03, # TODO: replace this
+                                                    tauz=tauz,
                                                     dataarr=dataarr,
                                                     obsmode=obsmode,
                                                     sourcename=sourcename,
