@@ -8,10 +8,16 @@ import numpy as np
 np.seterr(all='ignore')
 import FITS_tools
 
+
+# Setup paths
 prefix = 'AGBT06A_016_{session:02d}'
 outpath = rootpath = '/Volumes/passport/gc_hc3n/'
+# Determine the velocity range
 velocityrange = [-500,500]
+# cd3 is the velocity resolution
+cd3 = 2.0 # km/s
 
+# These give the *names* of each file for each sampler
 sampler_lines = {'D7': 'HC3N',
                  'D8': 'HC3N',
                  'C5': 'HC3N',
@@ -21,14 +27,20 @@ sampler_lines = {'D7': 'HC3N',
                  'A1': 'NH388',
                  'A2': 'NH388',
                 }
+# The names in the sampler_lines should correspond to rest frequencies here
 all_species = {'NH388':26.51896e9,
                'HC3N':27.29429e9}
 
+# The session # is the session of your GBT program
 sessions = (4,4,4,)
+# These are the first/last scans for each map (but it's most important that
+# they match the name of the file written by the calibration script)
 scans =     ([10, 34],
              [44, 93],
              [96, 114])
 
+# All feeds included in this dictionary will be used when building maps.
+# Comment out those you want to ignore (e.g., the second feed)
 samplers_feeds_mapping = {
                  'D7': 'F1',
                  #'D8': 'F2',
@@ -40,6 +52,7 @@ samplers_feeds_mapping = {
                  #'A2': 'F2',
                 }
 
+# Map names and shapes need to have the same length
 names =     ('G0.18-0.04',
              'M-0.02-0.07',
              'G0.18-0.04',
@@ -48,12 +61,12 @@ shapes = ([0.20298, -0.03243,40,40],
           [-0.01221,-0.07189,40,40],
           [0.20298, -0.03243,40,40])
 
+# nothing below here needs editing
 
 for species in all_species:
     for name,shape in zip(names,shapes):
         cubename = os.path.join(outpath,'cube_{name}_{species}'.format(name=name, species=species))
         print name,shape,cubename
-        cd3 = 2.0 # km/s
         naxis3 = (max(velocityrange)-min(velocityrange)) / cd3
         crval3 = (max(velocityrange)+min(velocityrange)) / 2.
         makecube.generate_header(shape[0], shape[1], naxis1=shape[2], naxis2=shape[3], pixsize=15,
@@ -104,7 +117,7 @@ for species in all_species:
                                       velocityrange=velocityrange,
                                       diagnostic_plot_name=fn.replace('.fits','_data_scrubbed.png'),
                                       linefreq=all_species[species],
-                                      smoothto=2)
+            )
 
     #os.system(os.path.join(outpath,'LimaBean_H2CO33_cube_starlink.sh'))
 
@@ -113,4 +126,4 @@ for species in all_species:
         cubename = os.path.join(outpath,'cube_{name}_{species}'.format(name=name, species=species))
         sub = fits.getdata(cubename+".fits") - fits.getdata(cubename+"_continuum.fits")
         fits.PrimaryHDU(data=sub, header=fits.getheader(cubename+".fits")).writeto(cubename+"_sub.fits", clobber=True)
-        makecube.make_flats(cubename,vrange=[-20,60],noisevrange=[150,200])
+        #makecube.make_flats(cubename,vrange=[-20,60],noisevrange=[150,200])
