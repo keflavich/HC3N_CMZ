@@ -1,6 +1,6 @@
 untitled.tex
 figures/Table1/Table1.png
-Models__.tex
+section_Models__.tex
 figures/simple_models/simple_models.png
 Below_are_some_spectra_of__.tex
 figures/50_kms_large_fitted_hc3n.png
