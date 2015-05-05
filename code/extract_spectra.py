@@ -8,7 +8,7 @@ from astropy import coordinates
 from astropy import units as u
 import pylab as pl
 
-regions = pyregion.open(paths.rpath('gbt_pointings.reg'))
+regions = pyregion.open(paths.rpath('apertures.reg')) + pyregion.open(paths.rpath('gbt_pointings.reg'))
 if not os.path.isdir(paths.specpath('')):
     os.mkdir(paths.specpath(''))
 if not os.path.isdir(paths.specpath('figures')):
