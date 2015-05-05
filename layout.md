@@ -1,4 +1,5 @@
 untitled.tex
+figures/Table1/Table1.png
 Models__.tex
 figures/simple_models/simple_models.png
 Below_are_some_spectra_of__.tex
