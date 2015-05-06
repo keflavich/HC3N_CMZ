@@ -8,6 +8,10 @@ R.run_radex()
 
 def temdencol(xarr, temperature, density, column):
     table = R(collider_densities={'H2':density}, temperature=temperature, column=column)
+    assert R.column == column
+    np.testing.assert_almost_equal(R.total_density.value, density)
+    assert R.temperature.value == temperature
+
     my_xarr = np.array(table['upperlevel'], dtype='int')
     result = [table['T_B'][my_xarr == ii][0] for ii in xarr]
     return np.array(result)
@@ -15,6 +19,9 @@ def temdencol(xarr, temperature, density, column):
 def temdenabund(xarr, temperature, density, abundance):
     table = R(collider_densities={'H2':density}, temperature=temperature,
               abundance=abundance)
+    assert R.abundance == abundance
+    np.testing.assert_almost_equal(R.total_density.value, density)
+    assert R.temperature.value == temperature
     my_xarr = np.array(table['upperlevel'], dtype='int')
     result = [table['T_B'][my_xarr == ii][0] for ii in xarr]
     return np.array(result)

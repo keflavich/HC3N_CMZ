@@ -1,5 +1,6 @@
 import os
 import astropy.io.fits as pyfits
+from astropy.io import fits
 import itertools
 import sys
 from sdpy import makecube,make_off_template,calibrate_map_scans
@@ -7,6 +8,7 @@ import numpy as np
 # to ignore div-by-zero errors?
 np.seterr(all='ignore')
 import FITS_tools
+from astropy import log
 
 
 # Setup paths
@@ -42,14 +44,14 @@ scans =     ([10, 34],
 # All feeds included in this dictionary will be used when building maps.
 # Comment out those you want to ignore (e.g., the second feed)
 samplers_feeds_mapping = {
-                 'D7': 'F1',
-                 #'D8': 'F2',
-                 'C5': 'F1',
-                 #'C6': 'F2',
-                 'B3': 'F1',
-                 #'B4': 'F2',
-                 'A1': 'F1',
-                 #'A2': 'F2',
+                 #'D7': 'F1',
+                 'D8': 'F2',
+                 #'C5': 'F1',
+                 'C6': 'F2',
+                 #'B3': 'F1',
+                 'B4': 'F2',
+                 #'A1': 'F1',
+                 'A2': 'F2',
                 }
 
 # Map names and shapes need to have the same length
