@@ -1,12 +1,20 @@
 import numpy as np
 import pyradex
+from pyradex import fjdu
 import pyspeckit
 from pyspeckit.spectrum.models.model import SpectralModel
 
-R = pyradex.Radex(species='hc3n-h2', abundance=1e-9, density=1e4, temperature=20)
+#R = pyradex.Radex(species='hc3n-h2', abundance=1e-9, density=1e4, temperature=20)
+R = fjdu.Fjdu(species='hc3n-h2', column=1e12, density=1e4, temperature=20)
 R.run_radex()
 
 def temdencol(xarr, temperature, density, column):
+    if density < 10:
+        density = 10.**density
+    if column < 30:
+        column = 10.**column
+    elif column < 1000:
+        raise ValueError('column is absurd')
     table = R(collider_densities={'H2':density}, temperature=temperature,
               column=column)
     assert R.column.value == column
@@ -29,7 +37,7 @@ def temdenabund(xarr, temperature, density, abundance):
 
 temdencolmod = SpectralModel(temdencol, npars=3,
                              parnames=['temperature','density','column'],
-                             parlimits=[(2.73, 100), (1, 1e10), (1e8, 1e20)],
+                             parlimits=[(2.73, 100), (0, 10), (8, 20)],
                              parlimited=[(True,True)]*3,
                              shortvarnames=['T','n(H_2)','N'],
                             )
