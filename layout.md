@@ -12,4 +12,4 @@ spectra/figures/G359.982-0.068_HC3N_3-2.png
 section_Images__.tex
 figures/GBT_coverage/GBT_coverage.png
 figures/VLA_maps/VLA_maps.png
-section_Modeling_HC3N_in_the__.tex
+section_Modeling_cyano_in_the__.tex
