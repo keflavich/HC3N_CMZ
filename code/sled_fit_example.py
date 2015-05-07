@@ -1,5 +1,5 @@
 import numpy as np
-from sled_fitter import pyspeckit
+from sled_fitter import pyspeckit, temdencol, temdenabund
 import pylab as pl
 
 eta_apex = 0.75
@@ -56,6 +56,8 @@ sp.specfit.annotate()
 #pl.subplot(2,2,3)
 #pl.loglog(mc.flatchain[100:,0], mc.flatchain[100:,2], '.', alpha=0.5)
 
+from constrain_parameters import HC3Nmodel
+
 data = {(int(j),int(j)-1): (d,e) for j,d,e in zip(sp.xarr, sp.data, sp.error)}
 mod = HC3Nmodel()
 mod.set_constraints(line_brightnesses=data)
@@ -66,6 +68,27 @@ pl.figure(3).clf()
 mod.denscolplot()
 pl.figure(4).clf()
 mod.coltemplot()
+
+from scipy import stats
+
+cdf = stats.chi2.cdf(mod.chi2 - mod.chi2.min(), 3)
+sortinds = np.argsort(cdf.ravel())
+sorted_cdf = cdf.flat[sortinds]
+
+sp.plotter(marker='s', linestyle='none', errstyle='bars', ymin=0, xmin=0, xmax=30,
+           figure=pl.figure(5))
+
+for dummy in range(100):
+    val = np.random.random()
+    sample_pos = np.argmin(np.abs(cdf - val))
+    pars = [mod.temparr.flat[sample_pos], mod.densityarr.flat[sample_pos],
+            mod.columnarr.flat[sample_pos]]
+    #print "{0:0.3f}: {1:12d}, {2:7.2f}, {3:6.3f}, {4:7.3f}".format(val,
+    #                                                               sample_pos,
+    #                                                               *pars)
+    sp.plotter.axis.plot(inds, temdencol(inds, *pars),
+                         'r-', alpha=0.2)
+
 
 pl.draw()
 pl.show()

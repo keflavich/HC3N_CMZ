@@ -8,15 +8,19 @@ from pyspeckit.spectrum.models.model import SpectralModel
 R = fjdu.Fjdu(species='hc3n-h2', column=1e12, density=1e4, temperature=20)
 R.run_radex()
 
-def temdencol(xarr, temperature, density, column):
+def temdencol(xarr, temperature, density, column, fortho=0, deltav=5.0):
     if density < 10:
         density = 10.**density
     if column < 30:
         column = 10.**column
     elif column < 1000:
         raise ValueError('column is absurd')
-    table = R(collider_densities={'H2':density}, temperature=temperature,
-              column=column)
+    table = R(collider_densities={'oH2':density*fortho,
+                                  'pH2':density*(1-fortho)},
+              temperature=temperature,
+              column=column,
+              deltav=5.0,
+             )
     assert R.column.value == column
     np.testing.assert_almost_equal(R.total_density.value, density)
     assert R.temperature.value == temperature
@@ -25,9 +29,10 @@ def temdencol(xarr, temperature, density, column):
     result = [table['T_B'][my_xarr == ii][0] for ii in xarr]
     return np.array(result)
 
-def temdenabund(xarr, temperature, density, abundance):
-    table = R(collider_densities={'H2':density}, temperature=temperature,
-              abundance=abundance)
+def temdenabund(xarr, temperature, density, abundance, fortho=0, deltav=5.0):
+    table = R(collider_densities={'oH2':density*fortho,
+                                  'pH2':density*(1-fortho)}, temperature=temperature,
+              abundance=abundance, deltav=deltav)
     assert R.abundance == abundance
     np.testing.assert_almost_equal(R.total_density.value, density)
     assert R.temperature.value == temperature

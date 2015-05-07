@@ -22,11 +22,9 @@ transitions = [(3,2), (4,3), (5,4), (10,9), (19,18), (24,23)]
 temperatures = np.linspace(10,350,ntemp)
 densities = np.linspace(2.5,7,ndens)
 columns = np.linspace(11, 17.1, ncol)
-abundance = 10**-8.5
-abundance = 1.2e-9 # Johnston / Ao
+abundance = 1.e-9 # Johnston / Ao
 opr = 0.01 # assume primarily para
-opr = 3
-fortho = opr/(1+opr)
+fortho = opr/(1.+opr)
 
 import os
 if not os.path.exists('hc3n-h2.dat'):
