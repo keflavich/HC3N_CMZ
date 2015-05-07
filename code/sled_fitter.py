@@ -7,8 +7,9 @@ R = pyradex.Radex(species='hc3n-h2', abundance=1e-9, density=1e4, temperature=20
 R.run_radex()
 
 def temdencol(xarr, temperature, density, column):
-    table = R(collider_densities={'H2':density}, temperature=temperature, column=column)
-    assert R.column == column
+    table = R(collider_densities={'H2':density}, temperature=temperature,
+              column=column)
+    assert R.column.value == column
     np.testing.assert_almost_equal(R.total_density.value, density)
     assert R.temperature.value == temperature
 

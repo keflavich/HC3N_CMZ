@@ -18,8 +18,8 @@ sp = pyspeckit.Spectrum(xarr=[3, 4, 5, 10,],# 24],
 
 sp.plotter(marker='s', linestyle='none', errstyle='bars', ymin=0, xmin=0, xmax=30,
            figure=pl.figure(1))
-sp.specfit(fittype='hc3n_temdenabund',
-           guesses=[50, 5e4, 1e-9],
+sp.specfit(fittype='hc3n_temdencol',
+           guesses=[50, 5e4, 1e12],
            fixed=[False, False, False],
            plot=False)
 inds = np.arange(1,30)
@@ -37,7 +37,7 @@ sp.specfit.annotate()
 
 #sp.specfit.parinfo.fixed[2] = False
 mc = sp.specfit.get_emcee()
-mc.run_mcmc(mc.p0*(1+np.random.randn(*mc.p0.shape)/5.), 1000)
+mc.run_mcmc(mc.p0*(1+np.random.randn(*mc.p0.shape)/5.), 10)
 pl.figure(2)
 pl.clf()
 pl.subplot(2,2,1)
