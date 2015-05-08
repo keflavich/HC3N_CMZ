@@ -64,13 +64,13 @@ mod.set_constraints(line_brightnesses=data)
 constraints = mod.get_parconstraints()
 pl.figure(2).clf()
 mod.denstemplot()
-sp.plotter.savefig('../figures/fitted_sleds/50kms_SLED_fit_lowJ_denstem.png')
+pl.savefig('../figures/fitted_sleds/50kms_SLED_fit_lowJ_denstem.png')
 pl.figure(3).clf()
 mod.denscolplot()
-sp.plotter.savefig('../figures/fitted_sleds/50kms_SLED_fit_lowJ_denscol.png')
+pl.savefig('../figures/fitted_sleds/50kms_SLED_fit_lowJ_denscol.png')
 pl.figure(4).clf()
 mod.coltemplot()
-sp.plotter.savefig('../figures/fitted_sleds/50kms_SLED_fit_lowJ_coltem.png')
+pl.savefig('../figures/fitted_sleds/50kms_SLED_fit_lowJ_coltem.png')
 
 from scipy import stats
 
