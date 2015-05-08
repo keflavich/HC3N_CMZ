@@ -230,7 +230,7 @@ class HC3Nmodel(generic_model):
 
         if levels is None:
             levels = np.array([stats.chi2.ppf(stats.norm.cdf(sigma)-stats.norm.cdf(-sigma), 3)
-                               for sigma in range(1,nlevs+1)])
+                               for sigma in range(nlevs+1)])
 
 
         fig = pl.gcf()
