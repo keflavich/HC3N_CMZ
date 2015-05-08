@@ -61,13 +61,16 @@ from constrain_parameters import HC3Nmodel
 data = {(int(j),int(j)-1): (d,e) for j,d,e in zip(sp.xarr, sp.data, sp.error)}
 mod = HC3Nmodel()
 mod.set_constraints(line_brightnesses=data)
-mod.get_parconstraints()
+constraints = mod.get_parconstraints()
 pl.figure(2).clf()
 mod.denstemplot()
+sp.plotter.savefig('../figures/fitted_sleds/50kms_SLED_fit_lowJ_denstem.png')
 pl.figure(3).clf()
 mod.denscolplot()
+sp.plotter.savefig('../figures/fitted_sleds/50kms_SLED_fit_lowJ_denscol.png')
 pl.figure(4).clf()
 mod.coltemplot()
+sp.plotter.savefig('../figures/fitted_sleds/50kms_SLED_fit_lowJ_coltem.png')
 
 from scipy import stats
 
@@ -75,8 +78,14 @@ cdf = stats.chi2.cdf(mod.chi2 - mod.chi2.min(), 3)
 sortinds = np.argsort(cdf.ravel())
 sorted_cdf = cdf.flat[sortinds]
 
+sp.specfit.parinfo.TEMPERATURE0.value = constraints['temperature_chi2']
+sp.specfit.parinfo.TEMPERATURE0.error = constraints['tmax1sig_chi2'] - constraints['temperature_chi2']
+sp.specfit.parinfo.COLUMN0.value = constraints['column_chi2']
+sp.specfit.parinfo.COLUMN0.error = constraints['cmax1sig_chi2'] - constraints['column_chi2']
+sp.specfit.parinfo.DENSITY0.value = constraints['density_chi2']
+sp.specfit.parinfo.DENSITY0.error = constraints['dmax1sig_chi2'] - constraints['density_chi2']
 sp.plotter(marker='s', linestyle='none', errstyle='bars', ymin=0, xmin=0, xmax=30,
-           figure=pl.figure(5))
+           figure=pl.figure(5), zorder=5)
 
 for dummy in range(100):
     val = np.random.random()
@@ -87,8 +96,11 @@ for dummy in range(100):
     #                                                               sample_pos,
     #                                                               *pars)
     sp.plotter.axis.plot(inds, temdencol(inds, *pars),
-                         'r-', alpha=0.2)
+                         'r-', alpha=0.1, zorder=-10)
 
+sp.specfit.annotate()
+sp.plotter.axis.set_xlabel("Rotational Level $J_U$")
+sp.plotter.savefig('../figures/fitted_sleds/50kms_SLED_fit_lowJ.png')
 
 pl.draw()
 pl.show()
