@@ -64,13 +64,13 @@ mod.set_constraints(line_brightnesses=data)
 constraints = mod.get_parconstraints()
 pl.figure(2).clf()
 mod.denstemplot()
-pl.savefig('../figures/fitted_sleds/50kms_SLED_fit_lowJ_denstem.png')
+pl.savefig('../figures/fitted_sleds/50kms_SLED_fit_lowJ_denstem/50kms_SLED_fit_lowJ_denstem.png')
 pl.figure(3).clf()
 mod.denscolplot()
-pl.savefig('../figures/fitted_sleds/50kms_SLED_fit_lowJ_denscol.png')
+pl.savefig('../figures/fitted_sleds/50kms_SLED_fit_lowJ_denscol/50kms_SLED_fit_lowJ_denscol.png')
 pl.figure(4).clf()
 mod.coltemplot()
-pl.savefig('../figures/fitted_sleds/50kms_SLED_fit_lowJ_coltem.png')
+pl.savefig('../figures/fitted_sleds/50kms_SLED_fit_lowJ_coltem/50kms_SLED_fit_lowJ_coltem.png')
 
 from scipy import stats
 
@@ -100,7 +100,7 @@ for dummy in range(100):
 
 sp.specfit.annotate()
 sp.plotter.axis.set_xlabel("Rotational Level $J_U$")
-sp.plotter.savefig('../figures/fitted_sleds/50kms_SLED_fit_lowJ.png')
+sp.plotter.savefig('../figures/fitted_sleds/50kms_SLED_fit_lowJ/50kms_SLED_fit_lowJ.png')
 
 pl.draw()
 pl.show()
