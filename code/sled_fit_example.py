@@ -102,5 +102,25 @@ sp.specfit.annotate()
 sp.plotter.axis.set_xlabel("Rotational Level $J_U$")
 sp.plotter.savefig('../figures/fitted_sleds/50kms_SLED_fit_lowJ/50kms_SLED_fit_lowJ.png')
 
+sp.plotter(marker='s', linestyle='none', errstyle='bars', ymin=0, xmin=0, xmax=30,
+           figure=pl.figure(6), zorder=5)
+
+temperatures = [20,50,100,300]
+for t in temperatures:
+    sample_pos_t = np.argmin(np.abs(mod.tarr - t))
+    best_pos = np.argmin(mod.chi2[sample_pos_t,:,:].flat)
+    pars = [mod.tarr[sample_pos_t],
+            mod.densityarr[sample_pos_t,:,:].flat[best_pos],
+            mod.columnarr[sample_pos_t,:,:].flat[best_pos]]
+    label = ("T={0} K, n=$10^{{{1:0.2f}}}$ cm$^{{-3}}$, N$=10^{{{2:0.2f}}}$ "
+             "cm$^{{-2}}$".format(t, pars[1], pars[2]))
+    sp.plotter.axis.plot(inds, temdencol(inds, *pars),
+                         '-', alpha=0.5, linewidth=2, zorder=-10,
+                         label=label)
+
+sp.plotter.axis.set_xlabel("Rotational Level $J_U$")
+sp.plotter.axis.legend(loc='upper right', fontsize=16)
+sp.plotter.savefig('../figures/fitted_sleds/50kms_SLED_fit_lowJ_exampletems/50kms_SLED_fit_lowJ_exampletems.png')
+
 pl.draw()
 pl.show()
