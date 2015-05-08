@@ -14,6 +14,7 @@ figures/GBT_coverage/GBT_coverage.png
 figures/VLA_maps/VLA_maps.png
 section_Modeling_cyano_in_the__.tex
 figures/fitted_sleds/50kms_SLED_fit_lowJ.png
+sled_fit_caption_a.tex
 figures/fitted_sleds/50kms_SLED_fit_lowJ_coltem.png
 figures/fitted_sleds/50kms_SLED_fit_lowJ_denscol.png
 figures/fitted_sleds/50kms_SLED_fit_lowJ_denstem.png
