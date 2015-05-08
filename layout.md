@@ -15,6 +15,7 @@ figures/VLA_maps/VLA_maps.png
 section_Modeling_cyano_in_the__.tex
 figures/fitted_sleds/50kms_SLED_fit_lowJ.png
 sled_fit_caption_a.tex
+figures/Output_Sigma_sigma_r_20150507162239667993/Output_Sigma_sigma_r_20150507162239667993.png
 figures/fitted_sleds/50kms_SLED_fit_lowJ_coltem.png
 figures/fitted_sleds/50kms_SLED_fit_lowJ_denscol.png
 figures/fitted_sleds/50kms_SLED_fit_lowJ_denstem.png
