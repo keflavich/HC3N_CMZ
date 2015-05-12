@@ -2,8 +2,11 @@ import numpy as np
 from sled_fitter import pyspeckit, temdencol, temdenabund
 import pylab as pl
 
+# from the APEX website, eta_mb
 eta_apex = 0.75
+# Using the "extended beam efficiency" from the Jones paper
 eta_mopra = 0.65
+# eta_gbt = eta_aperture * 1.32 to get to main beam efficiency
 #eta_gbt_5 = 0.68 * 1.32
 #eta_gbt_4 = 0.70 * 1.32
 eta_gbt_3 = 0.68 * 1.32
