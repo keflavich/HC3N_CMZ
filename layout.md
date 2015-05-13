@@ -1,5 +1,6 @@
 untitled.tex
 figures/Table1/Table1.png
+figures/Sources2/Sources2.png
 figures/Sources1/Sources1.png
 figures/Sources/Sources.png
 section_Models__.tex
