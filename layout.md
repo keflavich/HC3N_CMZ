@@ -20,4 +20,3 @@ figures/fitted_sleds/50kms_SLED_fit_lowJ_denscol/50kms_SLED_fit_lowJ_denscol.png
 figures/fitted_sleds/50kms_SLED_fit_lowJ_denstem/50kms_SLED_fit_lowJ_denstem.png
 figures/fitted_sleds/50kms_SLED_fit_lowJ_exampletems/50kms_SLED_fit_lowJ_exampletems.png
 figures/Lines/Lines.png
-figures/Sources3/Sources3.png
