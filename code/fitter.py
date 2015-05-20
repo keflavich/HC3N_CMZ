@@ -5,7 +5,7 @@ from constrain_parameters import HC3Nmodel
 from scipy import stats
 import pylab as pl
 import string
-valid_fn_chars = "_-"+string.ascii_letters+string.digits
+valid_fn_chars = "_-+"+string.ascii_letters+string.digits
 
 def savefig(path, saver=pl):
     dir = os.path.split(path)[0]
