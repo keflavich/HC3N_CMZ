@@ -136,5 +136,44 @@ def fit_a_sled(juppers, data, error, sourcename):
     savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_exampletems/{sourcename}_SLED_fit_exampletems.png'.format(sourcename=sourcename),
             sp.plotter)
 
+    # Plotting: show a selection of fixed-density models at best fit
+    # column, temperature
+    sp.plotter(marker='s', linestyle='none', errstyle='bars', ymin=0, xmin=0, xmax=30,
+               figure=pl.figure(6), zorder=5)
+
+    label = ("T={temperature:0.1f} K,"
+             " n=$10^{{{density:0.2f}}}$ cm$^{{-3}}$,"
+             " N$=10^{{{column:0.2f}}}$ "
+             "cm$^{{-2}}$".format(temperature=constraints['temperature_chi2'], 
+                                  density=constraints['density_chi2'],
+                                  column=constraints['column_chi2'],)
+            )
+    sp.plotter.axis.plot(inds, temdencol(inds, 
+                                         temperature=constraints['temperature_chi2'], 
+                                         density=constraints['density_chi2'],
+                                         column=constraints['column_chi2'],
+                                        ),
+                         'k--', alpha=0.8, zorder=1,
+                         label=label)
+
+    densities = np.log10([5e3,1e4,5e4,1e5])
+    for d in densities:
+        sample_pos_d = np.argmin(np.abs(mod.darr - d))
+        best_pos = np.argmin(mod.chi2[:,sample_pos_d,:].flat)
+        pars = [mod.temparr[:,sample_pos_d,:].flat[best_pos],
+                mod.darr[sample_pos_d],
+                mod.columnarr[:,sample_pos_d,:].flat[best_pos]]
+        label = ("T={0:0.1f} K, n=$10^{{{1:0.2f}}}$ cm$^{{-3}}$, N$=10^{{{2:0.2f}}}$ "
+                 "cm$^{{-2}}$".format(pars[0], d, pars[2]))
+        sp.plotter.axis.plot(inds, temdencol(inds, *pars),
+                             '-', alpha=0.5, linewidth=2, zorder=-10,
+                             label=label)
+
+    sp.plotter.axis.set_xlabel("Rotational Level $J_U$")
+    sp.plotter.axis.legend(loc='upper right', fontsize=16)
+    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_exampledens/{sourcename}_SLED_fit_exampledens.png'.format(sourcename=sourcename),
+            sp.plotter)
+
+
     pl.draw()
     pl.show()
