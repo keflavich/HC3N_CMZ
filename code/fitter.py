@@ -19,13 +19,14 @@ def fit_a_sled(juppers, data, error, sourcename):
 
     sp.plotter(marker='s', linestyle='none', errstyle='bars', ymin=0, xmin=0, xmax=30,
                figure=pl.figure(1))
-    sp.specfit(fittype='hc3n_temdencol',
-               guesses=[50, np.log10(5e4), 12.],
-               fixed=[False, False, False],
-               plot=False, use_lmfit=True)
     inds = np.arange(1,30)
-    sp.plotter.axis.plot(inds, sp.specfit.get_model(inds), 'o', alpha=0.5)
-    parinfo = sp.specfit.parinfo
+    if len(sp.data) > 2:
+        sp.specfit(fittype='hc3n_temdencol',
+                   guesses=[50, np.log10(5e4), 12.],
+                   fixed=[False, False, False],
+                   plot=False, use_lmfit=True)
+        sp.plotter.axis.plot(inds, sp.specfit.get_model(inds), 'o', alpha=0.5)
+    #parinfo = sp.specfit.parinfo
     # Skip this, it's just bonus viz
     #for column in np.linspace(parinfo.COLUMN0-parinfo.COLUMN0.error,
     #                          parinfo.COLUMN0+parinfo.COLUMN0.error,
@@ -43,35 +44,27 @@ def fit_a_sled(juppers, data, error, sourcename):
     constraints = mod.get_parconstraints()
     pl.figure(2).clf()
     mod.denstemplot()
-    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_lowJ_denstem/{sourcename}_SLED_fit_lowJ_denstem.png'.format(sourcename=sourcename))
+    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_denstem/{sourcename}_SLED_fit_denstem.png'.format(sourcename=sourcename))
     pl.figure(3).clf()
     mod.denscolplot()
-    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_lowJ_denscol/{sourcename}_SLED_fit_lowJ_denscol.png'.format(sourcename=sourcename))
+    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_denscol/{sourcename}_SLED_fit_denscol.png'.format(sourcename=sourcename))
     pl.figure(4).clf()
     mod.coltemplot()
-    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_lowJ_coltem/{sourcename}_SLED_fit_lowJ_coltem.png'.format(sourcename=sourcename))
+    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_coltem/{sourcename}_SLED_fit_coltem.png'.format(sourcename=sourcename))
 
 
     cdf = stats.chi2.cdf(mod.chi2 - mod.chi2.min(), 3)
     sortinds = np.argsort(cdf.ravel())
     sorted_cdf = cdf.flat[sortinds]
 
-    T0 = sp.specfit.parinfo.TEMPERATURE0
-    if not within(T0.limits, constraints['temperature_chi2']):
-        T0.limits = (2.73, 350)
-    T0.value = constraints['temperature_chi2']
-    T0.error = constraints['tmax1sig_chi2'] - constraints['temperature_chi2']
-    sp.specfit.parinfo.COLUMN0.value = constraints['column_chi2']
-    sp.specfit.parinfo.COLUMN0.error = constraints['cmax1sig_chi2'] - constraints['column_chi2']
-    sp.specfit.parinfo.DENSITY0.value = constraints['density_chi2']
-    sp.specfit.parinfo.DENSITY0.error = constraints['dmax1sig_chi2'] - constraints['density_chi2']
     sp.plotter(marker='s', linestyle='none', errstyle='bars', ymin=0, xmin=0, xmax=30,
                figure=pl.figure(5), zorder=5)
 
     for dummy in range(100):
         val = np.random.random()
         sample_pos = np.argmin(np.abs(cdf - val))
-        pars = [mod.temparr.flat[sample_pos], mod.densityarr.flat[sample_pos],
+        pars = [mod.temparr.flat[sample_pos],
+                mod.densityarr.flat[sample_pos],
                 mod.columnarr.flat[sample_pos]]
         #print "{0:0.3f}: {1:12d}, {2:7.2f}, {3:6.3f}, {4:7.3f}".format(val,
         #                                                               sample_pos,
@@ -79,9 +72,8 @@ def fit_a_sled(juppers, data, error, sourcename):
         sp.plotter.axis.plot(inds, temdencol(inds, *pars),
                              'r-', alpha=0.1, zorder=-10)
 
-    sp.specfit.annotate()
     sp.plotter.axis.set_xlabel("Rotational Level $J_U$")
-    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_lowJ/{sourcename}_SLED_fit_lowJ.png'.format(sourcename=sourcename),
+    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit/{sourcename}_SLED_fit.png'.format(sourcename=sourcename),
             sp.plotter)
 
     sp.plotter(marker='s', linestyle='none', errstyle='bars', ymin=0, xmin=0, xmax=30,
@@ -99,7 +91,7 @@ def fit_a_sled(juppers, data, error, sourcename):
                                          density=constraints['density_chi2'],
                                          column=constraints['column_chi2'],
                                         ),
-                         'k-', alpha=0.5, zorder=-11,
+                         'k--', alpha=0.8, zorder=1,
                          label=label)
 
     temperatures = [20,50,100,300]
@@ -117,7 +109,7 @@ def fit_a_sled(juppers, data, error, sourcename):
 
     sp.plotter.axis.set_xlabel("Rotational Level $J_U$")
     sp.plotter.axis.legend(loc='upper right', fontsize=16)
-    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_lowJ_exampletems/{sourcename}_SLED_fit_lowJ_exampletems.png'.format(sourcename=sourcename),
+    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_exampletems/{sourcename}_SLED_fit_exampletems.png'.format(sourcename=sourcename),
             sp.plotter)
 
     pl.draw()
