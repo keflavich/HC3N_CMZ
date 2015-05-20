@@ -21,6 +21,9 @@ def floatify(lst):
 def intify(lst):
     return [int(x) for x in lst]
 
+suffix = ""
+transition = ""
+
 datalines = []
 
 datastart = False
@@ -37,10 +40,21 @@ for line in lines:
     spl = [x.strip().replace("$","") for x in line.split("&")]
     if len(spl) == 8:
         if spl[0]:
-            source_name = spl[0].replace(r"{\bf","").replace("}","")
+            source_name = spl[0].replace(r"{\bf","").replace("}","").strip()
         if spl[1]: 
             chemical_name = pattern.sub(lambda x: replacedict[x.group()], spl[1])
         if spl[2]:
+            if rmpattern.sub("", spl[2]) == transition:
+                if suffix == "":
+                    suffix = "a"
+                    source_name = source_name + suffix
+                else:
+                    suffix = chr(ord(suffix) + 1)
+                    source_name = source_name[:-1] + suffix
+            else:
+                if suffix:
+                    source_name = source_name[:-1]
+                suffix = ""
             transition = rmpattern.sub("", spl[2])
             ju,jl = intify(transition.strip("()"+string.letters).split("-"))
         else:
