@@ -41,6 +41,7 @@ for line in lines:
     if len(spl) == 8:
         if spl[0]:
             source_name = spl[0].replace(r"{\bf","").replace("}","").strip()
+            suffix = ""
         if spl[1]: 
             chemical_name = pattern.sub(lambda x: replacedict[x.group()], spl[1])
         if spl[2]:
