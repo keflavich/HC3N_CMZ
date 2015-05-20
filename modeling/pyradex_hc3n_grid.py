@@ -22,7 +22,7 @@ transitions = [(3,2), (4,3), (5,4), (10,9), (19,18), (24,23)]
 temperatures = np.linspace(10,350,ntemp)
 densities = np.linspace(2.5,7,ndens)
 columns = np.linspace(11, 17.1, ncol)
-abundance = 1.e-9 # Johnston / Ao
+# not used abundance = 1.e-9 # Johnston / Ao
 opr = 0.01 # assume primarily para
 fortho = opr/(1.+opr)
 

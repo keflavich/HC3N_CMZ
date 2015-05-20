@@ -1,3 +1,4 @@
+import numpy as np
 from astropy.table import Table
 
 
@@ -12,3 +13,7 @@ for row in tbl:
         sleds[row['Source Name']]['ju'].append(row['Jupper'])
         sleds[row['Source Name']]['data'].append(row['TMB'])
         sleds[row['Source Name']]['error'].append(row['eTMB'])
+
+for obj in sleds:
+    for elt in sleds[obj]:
+        sleds[obj][elt] = np.array(sleds[obj][elt])
