@@ -10,7 +10,7 @@ replacedict = {r'\cyano':'HC3N',
 
 pattern = re.compile('(' + '|'.join(re.escape(x) for x in replacedict.keys()) + ')')
 
-removelist = r'\footnotemark[a]'
+removelist = [r'\footnotemark[a]',r'\footnotemark[b]']
 rmpattern = re.compile('(' + '|'.join(re.escape(x) for x in removelist) + ')')
 
 with open('table.tex') as f:
@@ -47,8 +47,8 @@ for line in lines:
             continue
 
         if "<" in spl[3]:
-            peaktmb = np.nan
-            epeaktmb = float(spl[3].split()[-1])
+            peaktmb = float(spl[3].split()[-1])
+            epeaktmb = np.nan
         elif spl[3]:
             peaktmb,epeaktmb = floatify(spl[3].split("\pm"))
 
