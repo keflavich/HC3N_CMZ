@@ -1,6 +1,7 @@
 import numpy as np
 import re
 from astropy.table import Table
+import string
 
 replacedict = {r'\cyano':'HC3N',
                r'\isoa':'H13CCCN',
@@ -17,6 +18,8 @@ with open('table.tex') as f:
 
 def floatify(lst):
     return [float(x) for x in lst]
+def intify(lst):
+    return [int(x) for x in lst]
 
 datalines = []
 
@@ -39,6 +42,7 @@ for line in lines:
             chemical_name = pattern.sub(lambda x: replacedict[x.group()], spl[1])
         if spl[2]:
             transition = rmpattern.sub("", spl[2])
+            ju,jl = intify(transition.strip("()"+string.letters).split("-"))
         else:
             continue
 
@@ -57,11 +61,11 @@ for line in lines:
         if spl[5]:
             width,ewidth = floatify(spl[5].split("\pm"))
         
-        datalines.append([source_name, chemical_name, transition, peaktmb,
+        datalines.append([source_name, chemical_name, ju, jl, peaktmb,
                           epeaktmb, vlsr, evlsr, width, ewidth])
 
 table = Table(data=zip(*datalines),
-              names=['Source Name', 'Chemical Name', 'Transition', 'TMB', 'eTMB', 'VLSR', 'eVLSR', 'width', 'ewidth'],
-              dtype=[(str, 20), (str, 10), (str, 8), float, float, float, float, float, float])
+              names=['Source Name', 'Chemical Name', 'Jupper', 'Jlower', 'TMB', 'eTMB', 'VLSR', 'eVLSR', 'width', 'ewidth'],
+              dtype=[(str, 20), (str, 10), int, int, float, float, float, float, float, float])
 
 table.write("linetable.csv", format='ascii.csv')
