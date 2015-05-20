@@ -1,9 +1,11 @@
 import os
 import numpy as np
-from sled_fitter import pyspeckit, temdencol, temdenabund
+from sled_fitter import pyspeckit, temdencol, temdenabund, temdencolmod
 from constrain_parameters import HC3Nmodel
 from scipy import stats
 import pylab as pl
+import string
+valid_fn_chars = "_-"+string.ascii_letters+string.digits
 
 def savefig(path, saver=pl):
     dir = os.path.split(path)[0]
@@ -15,6 +17,7 @@ def within(limits, value):
     return limits[0] < value < limits[1]
 
 def fit_a_sled(juppers, data, error, sourcename):
+    sourcename = "".join(x for x in sourcename.replace(" ","_") if x in valid_fn_chars)
     sp = pyspeckit.Spectrum(xarr=juppers, data=data, error=error, unit='$T_{MB}$ (K)',)
 
     sp.plotter(marker='s', linestyle='none', errstyle='bars', ymin=0, xmin=0, xmax=30,
@@ -26,7 +29,6 @@ def fit_a_sled(juppers, data, error, sourcename):
                    fixed=[False, False, False],
                    plot=False, use_lmfit=True)
         sp.plotter.axis.plot(inds, sp.specfit.get_model(inds), 'o', alpha=0.5)
-    #parinfo = sp.specfit.parinfo
     # Skip this, it's just bonus viz
     #for column in np.linspace(parinfo.COLUMN0-parinfo.COLUMN0.error,
     #                          parinfo.COLUMN0+parinfo.COLUMN0.error,
@@ -71,6 +73,25 @@ def fit_a_sled(juppers, data, error, sourcename):
         #                                                               *pars)
         sp.plotter.axis.plot(inds, temdencol(inds, *pars),
                              'r-', alpha=0.1, zorder=-10)
+
+    if len(sp.data) > 2:
+        parinfo = sp.specfit.parinfo
+    else:
+        sp.specfit.parinfo = parinfo = temdencolmod.make_parinfo()
+        sp.specfit.fitter = temdencolmod
+
+    T0 = parinfo.TEMPERATURE0
+    if not within(T0.limits, constraints['temperature_chi2']):
+        T0.limits = (2.73, 350)
+    T0.value = constraints['temperature_chi2']
+    T0.error = constraints['tmax1sig_chi2'] - constraints['temperature_chi2']
+    parinfo.COLUMN0.value = constraints['column_chi2']
+    parinfo.COLUMN0.error = constraints['cmax1sig_chi2'] - constraints['column_chi2']
+    parinfo.DENSITY0.value = constraints['density_chi2']
+    parinfo.DENSITY0.error = constraints['dmax1sig_chi2'] - constraints['density_chi2']
+    sp.plotter(marker='s', linestyle='none', errstyle='bars', ymin=0, xmin=0, xmax=30,
+               figure=pl.figure(5), zorder=5)
+    sp.specfit.annotate()
 
     sp.plotter.axis.set_xlabel("Rotational Level $J_U$")
     savefig('../figures/fitted_sleds/{sourcename}_SLED_fit/{sourcename}_SLED_fit.png'.format(sourcename=sourcename),
