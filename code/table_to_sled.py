@@ -1,7 +1,7 @@
 from astropy.table import Table
 
 
-tbl = Table.read('../tables/linetable.csv')
+tbl = Table.read('../tables/linetable.csv', format='ascii.csv')
 
 sleds = {}
 for row in tbl:
