@@ -1,5 +1,6 @@
 untitled.tex
 figures/Table1/Table1.png
+figures/Sources/Sources.png
 section_Models__.tex
 figures/simple_models/simple_models.png
 Below_are_some_spectra_of__.tex
@@ -18,3 +19,4 @@ figures/fitted_sleds/50kms_SLED_fit_lowJ_coltem/50kms_SLED_fit_lowJ_coltem.png
 figures/fitted_sleds/50kms_SLED_fit_lowJ_denscol/50kms_SLED_fit_lowJ_denscol.png
 figures/fitted_sleds/50kms_SLED_fit_lowJ_denstem/50kms_SLED_fit_lowJ_denstem.png
 figures/fitted_sleds/50kms_SLED_fit_lowJ_exampletems/50kms_SLED_fit_lowJ_exampletems.png
+figures/Lines/Lines.png
