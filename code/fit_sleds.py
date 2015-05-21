@@ -20,7 +20,7 @@ for source,data in sleds.items():
         # uses the measurement error: fitter.fit_a_sled(data['ju'], data['data'], data['error'], source)
 
         errors = np.array(data['data'][ok])*0.2
-        errors[uplim] = data['error'][uplim] * 5 # conservative: 5-sigma upper limits
+        errors[uplim[ok]] = data['error'][uplim & ok] * 5 # conservative: 5-sigma upper limits
 
         # make sure we don't pass in any negative data, because that's silly.
         fitter.fit_a_sled(data['ju'][ok], data['data'][ok], errors, source)

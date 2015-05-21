@@ -33,7 +33,7 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
     # Plotting setup
     sp.plotter(marker='s', linestyle='none', errstyle='bars', ymin=0, xmin=0, xmax=30,
                figure=pl.figure(1))
-    inds = np.arange(1,30)
+    inds = np.arange(1,31)
     if len(sp.data) > 2:
         sp.specfit(fittype='hc3n_temdencol',
                    guesses=[50, np.log10(5e4), 12.],
@@ -42,17 +42,19 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
         sp.plotter.axis.plot(inds, sp.specfit.get_model(inds), 'o', alpha=0.5)
 
     # Fitting is done here
-    data = {(int(j),int(j)-1): (d,e) for j,d,e in zip(sp.xarr, sp.data, sp.error) if j<maxj}
-    mod.set_constraints(line_brightnesses=data)
+    linedata = {(int(j),int(j)-1): (d,e) for j,d,e in zip(juppers, data, error) if j<maxj}
+    print("Low-J data: {0}".format(linedata))
+    print("juppers: {0}".format(juppers))
+    mod.set_constraints(line_brightnesses=linedata)
     constraints = mod.get_parconstraints()
     print("Low-J parameter constraints: {0}".format(constraints))
 
     # Add a separate constraint for high-j components
-    data2 = {(int(j),int(j)-1): (0,d) # upper limits
+    linedata2 = {(int(j),int(j)-1): (0,d) # upper limits
             if j<maxj
-            else (d,e) # measurements
-            for j,d,e in zip(sp.xarr, sp.data, sp.error)}
-    mod2.set_constraints(line_brightnesses=data2)
+            else (d,e/5) # measurements.  increase weight on non-upper-limit
+            for j,d,e in zip(juppers, data, error)}
+    mod2.set_constraints(line_brightnesses=linedata2)
     constraints2 = mod2.get_parconstraints()
     print("Upper-limits for low-J plus fits from high-J: {0}".format(constraints2))
 
@@ -66,6 +68,16 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
     pl.figure(4).clf()
     mod.coltemplot()
     savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_coltem/{sourcename}_SLED_fit_coltem.png'.format(sourcename=sourcename))
+
+    pl.figure(2).clf()
+    mod2.denstemplot()
+    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_highJ_denstem/{sourcename}_SLED_fit_highJ_denstem.png'.format(sourcename=sourcename))
+    pl.figure(3).clf()
+    mod2.denscolplot()
+    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_highJ_denscol/{sourcename}_SLED_fit_highJ_denscol.png'.format(sourcename=sourcename))
+    pl.figure(4).clf()
+    mod2.coltemplot()
+    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_highJ_coltem/{sourcename}_SLED_fit_highJ_coltem.png'.format(sourcename=sourcename))
 
     # Some statistics - used later
     cdf = stats.chi2.cdf(mod.chi2 - mod.chi2.min(), 3)
@@ -112,6 +124,7 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
     sp.specfit.annotate()
 
     sp.plotter.axis.set_xlabel("Rotational Level $J_U$")
+    sp.plotter.axis.set_xlim(0,32)
     savefig('../figures/fitted_sleds/{sourcename}_SLED_fit/{sourcename}_SLED_fit.png'.format(sourcename=sourcename),
             sp.plotter)
 
@@ -135,7 +148,7 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
                                         ),
                          'k--', alpha=0.8, zorder=1,
                          label=label)
-    if max(juppers) > 15:
+    if 24 in juppers:
         label = ("T={temperature:0.1f} K,"
                  " n=$10^{{{density:0.2f}}}$ cm$^{{-3}}$,"
                  " N$=10^{{{column:0.2f}}}$ "
@@ -166,6 +179,7 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
 
     sp.plotter.axis.set_xlabel("Rotational Level $J_U$")
     sp.plotter.axis.legend(loc='upper right', fontsize=16)
+    sp.plotter.axis.set_xlim(0,32)
     savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_exampletems/{sourcename}_SLED_fit_exampletems.png'.format(sourcename=sourcename),
             sp.plotter)
 
@@ -188,7 +202,7 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
                                         ),
                          'k--', alpha=0.8, zorder=1,
                          label=label)
-    if max(juppers) > 15:
+    if 24 in juppers:
         label = ("T={temperature:0.1f} K,"
                  " n=$10^{{{density:0.2f}}}$ cm$^{{-3}}$,"
                  " N$=10^{{{column:0.2f}}}$ "
@@ -219,6 +233,7 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
 
     sp.plotter.axis.set_xlabel("Rotational Level $J_U$")
     sp.plotter.axis.legend(loc='upper right', fontsize=16)
+    sp.plotter.axis.set_xlim(0,32)
     savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_exampledens/{sourcename}_SLED_fit_exampledens.png'.format(sourcename=sourcename),
             sp.plotter)
 
