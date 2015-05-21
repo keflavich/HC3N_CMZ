@@ -5,7 +5,9 @@ from constrain_parameters import HC3Nmodel
 from scipy import stats
 import pylab as pl
 import string
-valid_fn_chars = "_-+"+string.ascii_letters+string.digits
+valid_fn_chars = "._-+"+string.ascii_letters+string.digits
+
+mod = HC3Nmodel()
 
 def savefig(path, saver=pl):
     dir = os.path.split(path)[0]
@@ -33,7 +35,6 @@ def fit_a_sled(juppers, data, error, sourcename):
 
     # Fitting is done here
     data = {(int(j),int(j)-1): (d,e) for j,d,e in zip(sp.xarr, sp.data, sp.error)}
-    mod = HC3Nmodel()
     mod.set_constraints(line_brightnesses=data)
     constraints = mod.get_parconstraints()
 

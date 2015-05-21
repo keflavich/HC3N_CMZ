@@ -48,7 +48,7 @@ for line in lines:
         coord = coordinates.SkyCoord(ra+" "+dec, unit=('hour','deg'), frame='fk5')
         
         datalines.append([source_name, coord.ra.deg, coord.dec.deg])
-        regionlines.append("point({ra}, {dec}) # text={name}".format(ra=coord.ra.deg, dec=coord.dec.deg, name=source_name))
+        regionlines.append("point({ra}, {dec}) # text={{{name}}}".format(ra=coord.ra.deg, dec=coord.dec.deg, name=source_name))
 
 table = Table(data=zip(*datalines),
               names=['Source Name', 'RA', 'Dec'],
