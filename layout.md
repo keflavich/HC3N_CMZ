@@ -20,4 +20,5 @@ figures/fitted_sleds/50kms_SLED_fit_lowJ_denscol/50kms_SLED_fit_lowJ_denscol.png
 figures/fitted_sleds/50kms_SLED_fit_lowJ_denstem/50kms_SLED_fit_lowJ_denstem.png
 figures/fitted_sleds/50kms_SLED_fit_lowJ_exampletems/50kms_SLED_fit_lowJ_exampletems.png
 Documentation_for_the_fitting_process__.tex
+Notes_on_the_J_31__.tex
 figures/Lines/Lines.png
