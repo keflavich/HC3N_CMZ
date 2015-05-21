@@ -25,7 +25,7 @@ sp.specfit(fittype='hc3n_temdencol',
            guesses=[50, np.log10(5e4), 12.],
            fixed=[False, False, False],
            plot=False, use_lmfit=True)
-inds = np.arange(1,30)
+inds = np.arange(1,31)
 sp.plotter.axis.plot(inds, sp.specfit.get_model(inds), 'o', alpha=0.5)
 parinfo = sp.specfit.parinfo
 for column in np.linspace(parinfo.COLUMN0-parinfo.COLUMN0.error,

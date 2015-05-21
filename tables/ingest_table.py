@@ -30,6 +30,8 @@ datalines = []
 datastart = False
 dataend = False
 for line in lines:
+    if not line.strip():
+        continue
     if line.split()[0] == 'Source':
         datastart = True
         continue
@@ -39,7 +41,7 @@ for line in lines:
         dataend = True
 
     spl = [x.strip().replace("$","") for x in line.split("&")]
-    if len(spl) == 8:
+    if len(spl) == 9:
         if spl[0]:
             source_name = spl[0].replace(r"{\bf","").replace("}","").strip()
             suffix = ""
@@ -71,26 +73,29 @@ for line in lines:
         else:
             continue
 
-        if "<" in spl[3]:
-            peaktmb = 0
-            epeaktmb = float(spl[3].split()[-1])
-        elif spl[3]:
-            peaktmb,epeaktmb = floatify(spl[3].split("\pm"))
+        if spl[3]:
+            aperture = int(spl[3].strip("'").replace(r'\arcsec',''))
 
-        if spl[4]:
+        if "<" in spl[4]:
+            peaktmb = 0
+            epeaktmb = float(spl[4].split()[-1])
+        elif spl[4]:
+            peaktmb,epeaktmb = floatify(spl[4].split("\pm"))
+
+        if spl[5]:
             try:
-                vlsr,evlsr = floatify(spl[4].split("\pm"))
+                vlsr,evlsr = floatify(spl[5].split("\pm"))
             except ValueError:
                 vlsr,evlsr = np.nan,np.nan
 
-        if spl[5]:
-            width,ewidth = floatify(spl[5].split("\pm"))
+        if spl[6]:
+            width,ewidth = floatify(spl[6].split("\pm"))
         
         datalines.append([source_name, chemical_name, ju, jl, peaktmb,
-                          epeaktmb, vlsr, evlsr, width, ewidth])
+                          epeaktmb, vlsr, evlsr, width, ewidth, aperture])
 
 table = Table(data=zip(*datalines),
-              names=['Source Name', 'Chemical Name', 'Jupper', 'Jlower', 'TMB', 'eTMB', 'VLSR', 'eVLSR', 'width', 'ewidth'],
-              dtype=[(str, 20), (str, 10), int, int, float, float, float, float, float, float])
+              names=['Source Name', 'Chemical Name', 'Jupper', 'Jlower', 'TMB', 'eTMB', 'VLSR', 'eVLSR', 'width', 'ewidth', 'aperture'],
+              dtype=[(str, 20), (str, 10), int, int, float, float, float, float, float, float, int])
 
 table.write("linetable.csv", format='ascii.csv')

@@ -54,6 +54,7 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
             if j<maxj
             else (d,e/5) # measurements.  increase weight on non-upper-limit
             for j,d,e in zip(juppers, data, error)}
+    print("linedata2: {0}".format(linedata2))
     mod2.set_constraints(line_brightnesses=linedata2)
     constraints2 = mod2.get_parconstraints()
     print("Upper-limits for low-J plus fits from high-J: {0}".format(constraints2))
@@ -240,3 +241,5 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
 
     pl.draw()
     pl.show()
+
+    return mod, mod2
