@@ -17,7 +17,7 @@ warnings.filterwarnings('once')
 
 ntemp,ndens,ncol = 50,20,30
 
-transitions = [(3,2), (4,3), (5,4), (10,9), (19,18), (24,23)]
+transitions = [(3,2), (4,3), (5,4), (10,9), (19,18), (24,23), (30,29)]
 
 temperatures = np.linspace(10,350,ntemp)
 densities = np.linspace(2.5,7,ndens)

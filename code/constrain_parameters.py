@@ -102,7 +102,11 @@ class generic_model(object):
 class HC3Nmodel(generic_model):
 
     def __init__(self, tbackground=2.73, gridsize=[250.,101.,100.],
-                 lines=[(3,2),(4,3),(5,4),(10,9),(19,18),(24,23)]):
+                 lines=[(3,2),(4,3),(5,4),(10,9),(19,18),(24,23),(30,29)]):
+        """
+        We have to use the 30-29 as a proxy for the 31-30 and 32-31 because
+        they're not in the database
+        """
         self.lines = lines
         t0 = time.time()
         fname_template = 'fjdu_hc3n_{ju}-{jl}_{type}_5kms.fits'

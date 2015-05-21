@@ -1,3 +1,7 @@
+"""
+Load the LMV cubes, average and smooth them, then extract spectra from the
+specified apertures
+"""
 import numpy as np
 import pyregion
 import string

@@ -1,5 +1,6 @@
 import os
 import numpy as np
+import warnings
 from sled_fitter import pyspeckit, temdencol, temdenabund, temdencolmod
 from constrain_parameters import HC3Nmodel
 from scipy import stats
@@ -8,6 +9,7 @@ import string
 valid_fn_chars = "._-+"+string.ascii_letters+string.digits
 
 mod = HC3Nmodel()
+mod2 = HC3Nmodel()
 
 def savefig(path, saver=pl):
     dir = os.path.split(path)[0]
@@ -18,8 +20,14 @@ def savefig(path, saver=pl):
 def within(limits, value):
     return limits[0] < value < limits[1]
 
-def fit_a_sled(juppers, data, error, sourcename):
+def fit_a_sled(juppers, data, error, sourcename, maxj=15):
     sourcename = "".join(x for x in sourcename.replace(" ","_") if x in valid_fn_chars)
+
+    # HACK: J=31 and 32 are not allowed, use J=30 instead
+    if max(juppers) > 30:
+        warnings.warn("Changing some J levels from >30 to 30")
+        juppers[juppers>30] = 30
+
     sp = pyspeckit.Spectrum(xarr=juppers, data=data, error=error, unit='$T_{MB}$ (K)',)
 
     # Plotting setup
@@ -34,10 +42,19 @@ def fit_a_sled(juppers, data, error, sourcename):
         sp.plotter.axis.plot(inds, sp.specfit.get_model(inds), 'o', alpha=0.5)
 
     # Fitting is done here
-    data = {(int(j),int(j)-1): (d,e) for j,d,e in zip(sp.xarr, sp.data, sp.error)}
+    data = {(int(j),int(j)-1): (d,e) for j,d,e in zip(sp.xarr, sp.data, sp.error) if j<maxj}
     mod.set_constraints(line_brightnesses=data)
     constraints = mod.get_parconstraints()
+    print("Low-J parameter constraints: {0}".format(constraints))
 
+    # Add a separate constraint for high-j components
+    data2 = {(int(j),int(j)-1): (0,d) # upper limits
+            if j<maxj
+            else (d,e) # measurements
+            for j,d,e in zip(sp.xarr, sp.data, sp.error)}
+    mod2.set_constraints(line_brightnesses=data2)
+    constraints2 = mod2.get_parconstraints()
+    print("Upper-limits for low-J plus fits from high-J: {0}".format(constraints2))
 
     # Plotting parameter constraints
     pl.figure(2).clf()
@@ -118,6 +135,21 @@ def fit_a_sled(juppers, data, error, sourcename):
                                         ),
                          'k--', alpha=0.8, zorder=1,
                          label=label)
+    if max(juppers) > 15:
+        label = ("T={temperature:0.1f} K,"
+                 " n=$10^{{{density:0.2f}}}$ cm$^{{-3}}$,"
+                 " N$=10^{{{column:0.2f}}}$ "
+                 "cm$^{{-2}}$".format(temperature=constraints2['temperature_chi2'], 
+                                      density=constraints2['density_chi2'],
+                                      column=constraints2['column_chi2'],)
+                )
+        sp.plotter.axis.plot(inds, temdencol(inds, 
+                                             temperature=constraints2['temperature_chi2'], 
+                                             density=constraints2['density_chi2'],
+                                             column=constraints2['column_chi2'],
+                                            ),
+                             'k:', alpha=0.8, zorder=2,
+                             label=label)
 
     temperatures = [20,50,100,300]
     for t in temperatures:
@@ -156,6 +188,21 @@ def fit_a_sled(juppers, data, error, sourcename):
                                         ),
                          'k--', alpha=0.8, zorder=1,
                          label=label)
+    if max(juppers) > 15:
+        label = ("T={temperature:0.1f} K,"
+                 " n=$10^{{{density:0.2f}}}$ cm$^{{-3}}$,"
+                 " N$=10^{{{column:0.2f}}}$ "
+                 "cm$^{{-2}}$".format(temperature=constraints2['temperature_chi2'], 
+                                      density=constraints2['density_chi2'],
+                                      column=constraints2['column_chi2'],)
+                )
+        sp.plotter.axis.plot(inds, temdencol(inds, 
+                                             temperature=constraints2['temperature_chi2'], 
+                                             density=constraints2['density_chi2'],
+                                             column=constraints2['column_chi2'],
+                                            ),
+                             'k:', alpha=0.8, zorder=2,
+                             label=label)
 
     densities = np.log10([5e3,1e4,5e4,1e5])
     for d in densities:

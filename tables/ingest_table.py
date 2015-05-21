@@ -72,8 +72,8 @@ for line in lines:
             continue
 
         if "<" in spl[3]:
-            peaktmb = float(spl[3].split()[-1])
-            epeaktmb = np.nan
+            peaktmb = 0
+            epeaktmb = float(spl[3].split()[-1])
         elif spl[3]:
             peaktmb,epeaktmb = floatify(spl[3].split("\pm"))
 
