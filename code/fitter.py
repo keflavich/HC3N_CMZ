@@ -165,6 +165,19 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
                              'k:', alpha=0.8, zorder=2,
                              label=label)
 
+        temperatures = [20,50,100,300]
+        for t in temperatures:
+            sample_pos_t = np.argmin(np.abs(mod2.tarr - t))
+            best_pos = np.argmin(mod2.chi2[sample_pos_t,:,:].flat)
+            pars = [mod2.tarr[sample_pos_t],
+                    mod2.densityarr[sample_pos_t,:,:].flat[best_pos],
+                    mod2.columnarr[sample_pos_t,:,:].flat[best_pos]]
+            label = ("T={0} K, n=$10^{{{1:0.2f}}}$ cm$^{{-3}}$, N$=10^{{{2:0.2f}}}$ "
+                     "cm$^{{-2}}$".format(t, pars[1], pars[2]))
+            sp.plotter.axis.plot(inds, temdencol(inds, *pars),
+                                 ':', alpha=0.5, linewidth=1, zorder=-11,
+                                 label=label)
+
     temperatures = [20,50,100,300]
     for t in temperatures:
         sample_pos_t = np.argmin(np.abs(mod.tarr - t))
@@ -218,6 +231,19 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
                                             ),
                              'k:', alpha=0.8, zorder=2,
                              label=label)
+
+        densities = np.log10([5e4,1e5,5e5])
+        for d in densities:
+            sample_pos_d = np.argmin(np.abs(mod2.darr - d))
+            best_pos = np.argmin(mod2.chi2[:,sample_pos_d,:].flat)
+            pars = [mod2.temparr[:,sample_pos_d,:].flat[best_pos],
+                    mod2.darr[sample_pos_d],
+                    mod2.columnarr[:,sample_pos_d,:].flat[best_pos]]
+            label = ("T={0:0.1f} K, n=$10^{{{1:0.2f}}}$ cm$^{{-3}}$, N$=10^{{{2:0.2f}}}$ "
+                     "cm$^{{-2}}$".format(pars[0], d, pars[2]))
+            sp.plotter.axis.plot(inds, temdencol(inds, *pars),
+                                 ':', alpha=0.5, linewidth=1, zorder=-11,
+                                 label=label)
 
     densities = np.log10([5e3,1e4,5e4,1e5])
     for d in densities:
