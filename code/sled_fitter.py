@@ -5,7 +5,8 @@ import pyspeckit
 from pyspeckit.spectrum.models.model import SpectralModel
 
 #R = pyradex.Radex(species='hc3n-h2', abundance=1e-9, density=1e4, temperature=20)
-R = fjdu.Fjdu(species='hc3n-h2', column=1e12, density=1e4, temperature=20)
+R = pyradex.Radex(species='hc3n-h2', column=1e12, density=1e4, temperature=20)
+#R = fjdu.Fjdu(species='hc3n-h2', column=1e12, density=1e4, temperature=20)
 R.run_radex()
 
 def temdencol(xarr, temperature, density, column, fortho=0, deltav=5.0):

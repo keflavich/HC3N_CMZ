@@ -102,7 +102,7 @@ class generic_model(object):
 class HC3Nmodel(generic_model):
 
     def __init__(self, tbackground=2.73, gridsize=[250.,101.,100.],
-                 lines=[(3,2),(4,3),(5,4),(10,9),(19,18),(24,23),(30,29)]):
+                 lines=[(3,2),(4,3),(5,4),(10,9),(18,17),(19,18),(21,20),(24,23),(30,29)]):
         """
         We have to use the 30-29 as a proxy for the 31-30 and 32-31 because
         they're not in the database
@@ -220,7 +220,7 @@ class HC3Nmodel(generic_model):
         """
         Compute the total chi2 from the individual chi2 components
         """
-        self.chi2 = (self.chi2_X + self.chi2_h2 + np.sum(self.chi2_lines.values(), axis=0))
+        self.chi2 = (self.chi2_X + self.chi2_h2 + np.sum(list(self.chi2_lines.values()), axis=0))
 
     def parplot(self, par1='dens', par2='col', nlevs=5, levels=None):
 

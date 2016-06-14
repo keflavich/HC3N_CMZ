@@ -14,7 +14,12 @@ if not os.path.isdir(paths.specpath('')):
 if not os.path.isdir(paths.specpath('figures')):
     os.mkdir(paths.specpath('figures'))
 
-cubes = (('HC3N_24-23', '/Volumes/passport/apex/reduced/molecule_cubes/APEX_HC3N_24-23.fits'),
+cubes = (
+         ('HC3N_18-17', '/Users/adam/work/gc/hc3n/HC3N_CMZ/dropbox/50kms-HC3N_163_-50-150kms.fits'),
+         ('HC3N_19-18', '/Users/adam/work/gc/hc3n/HC3N_CMZ/dropbox/50kms-HC3N_172_-50-150kms.fits'),
+         ('HC3N_21-20', '/Users/adam/work/gc/hc3n/HC3N_CMZ/dropbox/50kms-HC3N_191_-50-150kms.fits'),
+         ('HC3N_24-23b', '/Users/adam/work/gc/hc3n/HC3N_CMZ/dropbox/50kms-HC3N_218_-50-150kms.fits'),
+         ('HC3N_24-23', '/Volumes/passport/apex/reduced/molecule_cubes/APEX_HC3N_24-23.fits'),
          ('HC3N_10-9', '/Volumes/passport/mopra/CMZ_3mm_HC3N.fits'),
          ('HC3N_3-2', '/Volumes/passport/gc_hc3n/cube_M-0.02-0.07_HC3N.fits'),
          ('HC3N_3-2', '/Volumes/passport/gc_hc3n/cube_G0.18-0.04_HC3N.fits'),
@@ -51,5 +56,3 @@ for linename, cubename in cubes:
         sp.specfit(guesses=sp.specfit.parinfo.values)
         sp.plotter.savefig(paths.specpath('figures/{name}_{line}.png'.format(name=name,
                                                                              line=linename)))
-
-

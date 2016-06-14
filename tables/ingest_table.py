@@ -46,7 +46,7 @@ for line in lines:
             source_name = spl[0].replace(r"{\bf","").replace("}","").strip()
             suffix = ""
             transition = ""
-        if spl[1]: 
+        if spl[1]:
             if chemical_name != pattern.sub(lambda x: replacedict[x.group()], spl[1]):
                 if suffix:
                     source_name = source_name[:-1]
@@ -69,7 +69,7 @@ for line in lines:
                     source_name = source_name[:-1]
                 suffix = ""
             transition = rmpattern.sub("", spl[2])
-            ju,jl = intify(transition.strip("()"+string.letters).split("-"))
+            ju,jl = intify(transition.strip("()"+string.ascii_letters).split("-"))
         else:
             continue
 
@@ -94,7 +94,7 @@ for line in lines:
         datalines.append([source_name, chemical_name, ju, jl, peaktmb,
                           epeaktmb, vlsr, evlsr, width, ewidth, aperture])
 
-table = Table(data=zip(*datalines),
+table = Table(data=list(zip(*datalines)),
               names=['Source Name', 'Chemical Name', 'Jupper', 'Jlower', 'TMB', 'eTMB', 'VLSR', 'eVLSR', 'width', 'ewidth', 'aperture'],
               dtype=[(str, 20), (str, 10), int, int, float, float, float, float, float, float, int])
 
