@@ -241,6 +241,9 @@ class HC3Nmodel(generic_model):
         fig.clf()
 
         for index,(trans, chi2) in enumerate(self.chi2_lines.items()):
+            if index > 5:
+                # skip b/c too many subplots.  Would be better to plot, but that can come later
+                continue
             ax = pl.subplot(2,3,index+1)
             ax.contourf(xax, yax, chi2.min(axis=axis),
                         levels=chi2.min()+levels, alpha=0.5)

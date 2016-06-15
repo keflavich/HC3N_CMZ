@@ -17,7 +17,7 @@ warnings.filterwarnings('once')
 
 ntemp,ndens,ncol = 50,20,30
 
-transitions = [(3,2), (4,3), (5,4), (10,9), (19,18), (24,23), (30,29)]
+transitions = [(3,2), (4,3), (5,4), (10,9), (11,10), (18,17), (19,18), (21,20), (24,23), (28,27), (30,29)]
 
 temperatures = np.linspace(10,350,ntemp)
 densities = np.linspace(2.5,7,ndens)
@@ -139,7 +139,7 @@ if __name__ == "__main__":
                                                               dv='5kms')
         ff.writeto(gpath(outfile),
                    clobber=True)
-        print outfile
+        print("outfile: ",outfile)
 
     #ff = makefits(fpars['fluxgrid_321']/fpars['fluxgrid_303'], 'ratio',
     #              densities=densities, temperatures=temperatures,
@@ -160,7 +160,7 @@ if __name__ == "__main__":
                                                           dv='5kms')
         ff.writeto(gpath(outfile),
                    clobber=True)
-        print outfile
+        print("outfile: ",outfile)
 
     #ff = makefits(pars['fluxgrid_321']/pars['fluxgrid_303'], 'ratio',
     #         densities=densities, temperatures=temperatures, columns=columns)
