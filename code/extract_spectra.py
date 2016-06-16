@@ -15,6 +15,14 @@ if not os.path.isdir(paths.specpath('figures')):
     os.mkdir(paths.specpath('figures'))
 
 cubes = (
+         ('HC3N_18-17',  '/Users/adam/work/gc/hc3n/HC3N_CMZ/dropbox/G0253-HC3N_163_-75-125kms.fits'),
+         ('HC3N_19-18',  '/Users/adam/work/gc/hc3n/HC3N_CMZ/dropbox/G0253-HC3N_172_-75-125kms.fits'),
+         ('HC3N_21-20',  '/Users/adam/work/gc/hc3n/HC3N_CMZ/dropbox/G0253-HC3N_191_-75-125kms.fits'),
+         ('HC3N_24-23b', '/Users/adam/work/gc/hc3n/HC3N_CMZ/dropbox/G0253-HC3N_218_-75-125kms.fits'),
+         ('HC3N_18-17', '/Users/adam/work/gc/hc3n/HC3N_CMZ/dropbox/20kms-HC3N_163_-80-120kms.fits'),
+         ('HC3N_19-18', '/Users/adam/work/gc/hc3n/HC3N_CMZ/dropbox/20kms-HC3N_172_-80-120kms.fits'),
+         ('HC3N_21-20', '/Users/adam/work/gc/hc3n/HC3N_CMZ/dropbox/20kms-HC3N_191_-80-120kms.fits'),
+         ('HC3N_24-23b', '/Users/adam/work/gc/hc3n/HC3N_CMZ/dropbox/20kms-HC3N_218_-80-120kms.fits'),
          ('HC3N_18-17', '/Users/adam/work/gc/hc3n/HC3N_CMZ/dropbox/50kms-HC3N_163_-50-150kms.fits'),
          ('HC3N_19-18', '/Users/adam/work/gc/hc3n/HC3N_CMZ/dropbox/50kms-HC3N_172_-50-150kms.fits'),
          ('HC3N_21-20', '/Users/adam/work/gc/hc3n/HC3N_CMZ/dropbox/50kms-HC3N_191_-50-150kms.fits'),

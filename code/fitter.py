@@ -80,11 +80,11 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
     mod2.coltemplot()
     savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_highJ_coltem/{sourcename}_SLED_fit_highJ_coltem.png'.format(sourcename=sourcename))
 
-    # Some statistics - used later
+    # Some statistics - used for overplotting a sample of models
     cdf = stats.chi2.cdf(mod.chi2 - mod.chi2.min(), 3)
-    sortinds = np.argsort(cdf.ravel())
-    sorted_cdf = cdf.flat[sortinds]
-
+    #sortinds = np.argsort(cdf.ravel())
+    #sorted_cdf = cdf.flat[sortinds]
+    cdf2 = stats.chi2.cdf(mod2.chi2 - mod2.chi2.min(), 3)
 
     # Plotting: show 100 randomly sampled model overlays selected from the
     # best-fit parameter space
@@ -97,11 +97,19 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
         pars = [mod.temparr.flat[sample_pos],
                 mod.densityarr.flat[sample_pos],
                 mod.columnarr.flat[sample_pos]]
-        #print "{0:0.3f}: {1:12d}, {2:7.2f}, {3:6.3f}, {4:7.3f}".format(val,
+        #print("{0:0.3f}: {1:12d}, {2:7.2f}, {3:6.3f}, {4:7.3f}".format(val,
         #                                                               sample_pos,
-        #                                                               *pars)
+        #                                                               *pars))
         sp.plotter.axis.plot(inds, temdencol(inds, *pars),
                              'r-', alpha=0.1, zorder=-10)
+
+        val = np.random.random()
+        sample_pos2 = np.argmin(np.abs(cdf2 - val))
+        pars2 = [mod2.temparr.flat[sample_pos2],
+                 mod2.densityarr.flat[sample_pos2],
+                 mod2.columnarr.flat[sample_pos2]]
+        sp.plotter.axis.plot(inds, temdencol(inds, *pars2),
+                             'b-', alpha=0.1, zorder=-10)
 
 
     # Plotting / annotation:
@@ -121,8 +129,8 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
     parinfo.DENSITY0.value = constraints['density_chi2']
     parinfo.DENSITY0.error = constraints['dmax1sig_chi2'] - constraints['density_chi2']
     sp.plotter(marker='s', linestyle='none', errstyle='bars', ymin=0, xmin=0, xmax=30,
-               figure=pl.figure(5), zorder=5)
-    sp.specfit.annotate()
+               figure=pl.figure(5), zorder=5, clear=False)
+    #sp.specfit.annotate()
 
     sp.plotter.axis.set_xlabel("Rotational Level $J_U$")
     sp.plotter.axis.set_xlim(0,32)
@@ -138,12 +146,12 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
     label = ("T={temperature:0.1f} K,"
              " n=$10^{{{density:0.2f}}}$ cm$^{{-3}}$,"
              " N$=10^{{{column:0.2f}}}$ "
-             "cm$^{{-2}}$".format(temperature=constraints['temperature_chi2'], 
+             "cm$^{{-2}}$".format(temperature=constraints['temperature_chi2'],
                                   density=constraints['density_chi2'],
                                   column=constraints['column_chi2'],)
             )
-    sp.plotter.axis.plot(inds, temdencol(inds, 
-                                         temperature=constraints['temperature_chi2'], 
+    sp.plotter.axis.plot(inds, temdencol(inds,
+                                         temperature=constraints['temperature_chi2'],
                                          density=constraints['density_chi2'],
                                          column=constraints['column_chi2'],
                                         ),
@@ -153,12 +161,12 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
         label = ("T={temperature:0.1f} K,"
                  " n=$10^{{{density:0.2f}}}$ cm$^{{-3}}$,"
                  " N$=10^{{{column:0.2f}}}$ "
-                 "cm$^{{-2}}$".format(temperature=constraints2['temperature_chi2'], 
+                 "cm$^{{-2}}$".format(temperature=constraints2['temperature_chi2'],
                                       density=constraints2['density_chi2'],
                                       column=constraints2['column_chi2'],)
                 )
-        sp.plotter.axis.plot(inds, temdencol(inds, 
-                                             temperature=constraints2['temperature_chi2'], 
+        sp.plotter.axis.plot(inds, temdencol(inds,
+                                             temperature=constraints2['temperature_chi2'],
                                              density=constraints2['density_chi2'],
                                              column=constraints2['column_chi2'],
                                             ),
@@ -175,7 +183,7 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
             label = ("T={0} K, n=$10^{{{1:0.2f}}}$ cm$^{{-3}}$, N$=10^{{{2:0.2f}}}$ "
                      "cm$^{{-2}}$".format(t, pars[1], pars[2]))
             sp.plotter.axis.plot(inds, temdencol(inds, *pars),
-                                 ':', alpha=0.5, linewidth=1, zorder=-11,
+                                 '-.', alpha=0.5, linewidth=1, zorder=-11,
                                  label=label)
 
     temperatures = [20,50,100,300]
@@ -205,12 +213,12 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
     label = ("T={temperature:0.1f} K,"
              " n=$10^{{{density:0.2f}}}$ cm$^{{-3}}$,"
              " N$=10^{{{column:0.2f}}}$ "
-             "cm$^{{-2}}$".format(temperature=constraints['temperature_chi2'], 
+             "cm$^{{-2}}$".format(temperature=constraints['temperature_chi2'],
                                   density=constraints['density_chi2'],
                                   column=constraints['column_chi2'],)
             )
-    sp.plotter.axis.plot(inds, temdencol(inds, 
-                                         temperature=constraints['temperature_chi2'], 
+    sp.plotter.axis.plot(inds, temdencol(inds,
+                                         temperature=constraints['temperature_chi2'],
                                          density=constraints['density_chi2'],
                                          column=constraints['column_chi2'],
                                         ),
@@ -220,12 +228,12 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
         label = ("T={temperature:0.1f} K,"
                  " n=$10^{{{density:0.2f}}}$ cm$^{{-3}}$,"
                  " N$=10^{{{column:0.2f}}}$ "
-                 "cm$^{{-2}}$".format(temperature=constraints2['temperature_chi2'], 
+                 "cm$^{{-2}}$".format(temperature=constraints2['temperature_chi2'],
                                       density=constraints2['density_chi2'],
                                       column=constraints2['column_chi2'],)
                 )
-        sp.plotter.axis.plot(inds, temdencol(inds, 
-                                             temperature=constraints2['temperature_chi2'], 
+        sp.plotter.axis.plot(inds, temdencol(inds,
+                                             temperature=constraints2['temperature_chi2'],
                                              density=constraints2['density_chi2'],
                                              column=constraints2['column_chi2'],
                                             ),
@@ -268,4 +276,4 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
     pl.draw()
     pl.show()
 
-    return mod, mod2
+    return mod, mod2, sp

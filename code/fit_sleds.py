@@ -4,9 +4,11 @@ from table_to_sled import sleds
 
 
 for source,data in sleds.items():
+    if source not in ('M-0.02-0.07', 'M-0.13-0.08 (b1)', 'M+0.25+0.01'):
+        continue
 
     # Filter out the high-J lines for SLED fitting (we'll deal with them separately)
-    high = data['ju'] > 15
+    #high = data['ju'] > 15
 
     #data['data'] = data['data'][~high]
     #data['error'] = data['error'][~high]
@@ -23,6 +25,6 @@ for source,data in sleds.items():
         errors[uplim[ok]] = data['error'][uplim & ok] * 5 # conservative: 5-sigma upper limits
 
         # make sure we don't pass in any negative data, because that's silly.
-        fitter.fit_a_sled(data['ju'][ok], data['data'][ok], errors, source)
+        mod1, mod2, sp = fitter.fit_a_sled(data['ju'][ok], data['data'][ok], errors, source)
     else:
         print("Skipping {0}".format(source))
