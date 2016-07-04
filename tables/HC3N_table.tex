@@ -1,0 +1,343 @@
+\documentclass[twocolumn]{emulateapj}
+
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{multirow}
+\usepackage{textcomp}
+\usepackage{longtable}
+
+\newcommand{\bc}{\begin{center}}
+\newcommand{\ec}{\end{center}}
+\newcommand{\flab}[1]{\label{fig:#1}}
+\newcommand{\fref}[1]{Figure~\ref{fig:#1}}
+
+\newcommand{\fig}[5]{
+        \begin{figure}[!tb]
+        \bc
+        \includegraphics[#3]{figures/#2}
+        \ec
+        \renewcommand{\baselinestretch}{1}
+        \vspace*{-.3in}
+        \caption[#4]{\emph{#5}}
+        \flab{#1}
+        \end{figure}}
+
+\newcommand{\kms}{km~s$^{-1}$}
+\newcommand{\hii}{HII }
+\newcommand{\am}{NH$_{3}$}
+\newcommand{\cyano}{HC$_3$N}
+\newcommand{\isoa}{H$^{13}$CCCN}
+\newcommand{\isob}{HC$^{13}$CCN}
+\newcommand{\isoc}{HCC$^{13}$CN}
+\newcommand{\cm}{cm$^{-3}$}
+
+\begin{document}
+
+\begin{table}[ht]
+\caption{Observed Transitions of \cyano\, and its $^{13}$C Isotopologues} 
+\centering
+\begin{tabular}{cccccccc}
+\\[0.5ex]
+\hline\hline
+& & & & & & &\\
+{\bf Species} & {\bf Transition} & {\bf Frequency} & {\bf E$_{\mathrm{upper}}$/k} & {\bf n$_{\mathrm{crit}}$ at 50 K}  & {\bf n$_{\mathrm{eff}}$ at 50 K}\footnotemark[a]  & {\bf Telescope} & {\bf Beam FWHM} \\ [0.5ex]
+				& 		& {(GHz)} 	& {(K)} 		&$\times 10^{4}$ cm$^{-3}$ & $\times 10^{4}$ cm$^{-3}$ & & $''$\\
+\hline
+\cyano   			& (3-2)  	&   27.29429 	&     2.6198 	& 0.18 		& 0.11 	& GBT 		& 28$''$ \\
+				& (4-3)    	&   36.39232 	&     4.2394 	& 0.47 		& 0.15 	& GBT 		& 21$''$ \\
+				& (5-4)    	&   45.49031 	&     6.5496 	& 0.96 		& 0.21 	& GBT 		& 17$''$ \\
+				&		&  		    	&   			& 			&		& MOPRA 	& 65$''$ \\
+				& (10-9)    &   90.97902	&   24.0148	& 8.2 		& 1.4 	& MOPRA 	& 40$''$ \\
+				& (18-17)  & 163.75339   	&   74.6621	& 280		&		& APEX 		& 38$''$ \\
+				& (24-23)  & 218.32472	& 130.9821	& $\sim$590	&		& APEX 		& 29$''$ \\
+				& (31-30) 	& 281.97679	& 216.5468	& $\sim$1280	&		& APEX 		& 22$''$ \\
+%				& (32-31)  & 291.06843	& 230.5159	& $\sim$1410	&		& APEX 		& 22$''$ \\
+				& & & & & & &  \\
+\hline
+H$^{13}$CCCN		& (3-2) 	& 26.450591	& 2.53885 	&			& 		& GBT 		& 29$''$ \\
+				& (5-4)     	& 44.084162	& 6.34711		&			&		& GBT 		& 17$''$ \\
+				& & & & & & &  \\
+\hline
+HC$^{13}$CCN 	& (3-2)  	& 27.178505 	& 2.60874 	&			&		& GBT 		& 28$''$ \\
+				& (5-4)     	& 45.297335	& 6.52173		&			&		& GBT 		& 17$''$ \\
+				& &  & & & & & \\
+\hline
+HCC$^{13}$CN 	& (3-2)  	& 27.181123	& 2.60901		&			&		& GBT 		& 28$''$ \\
+				& (5-4)     	& 45.301707	& 6.52237		&			&		& GBT 		& 17$''$ \\
+				& & & & & & &  \\
+\hline
+\end{tabular}
+\label{HC3N}
+\end{table}
+\noindent\footnotesize{$^{\mathrm{a}}$From Shirley 2015, using the collisional coefficients  of CITE(X) from LAMDA}
+\clearpage
+
+\begin{table}[ht]
+\caption{Observed Sources} 
+\centering
+\begin{tabular}{llll}
+\\[0.5ex]
+\hline\hline
+& & &  \\
+  &  & & \\
+{\bf Source} & {\bf RA (J2000)} &{\bf Dec (J2000)} & Lines Covered\\
+\hline
+ {\bf Bania-1       } 			&  17$^{\mathrm{h}}$51$^{\mathrm{m}}$44.92$^{\mathrm{s}}$   & -25\degr 51\arcmin 01.42\arcsec &  \cyano\, (3-2)\footnotemark[P] \\
+ {\bf Bania-2       } 			&  17$^{\mathrm{h}}$51$^{\mathrm{m}}$19.88$^{\mathrm{s}}$   &  -26\degr 01\arcmin 54.89\arcsec &  \cyano\, (3-2)\footnotemark[P]  \\
+ {\bf Bania-3       } 			&  17$^{\mathrm{h}}$52$^{\mathrm{m}}$10.71$^{\mathrm{s}}$   & -26\degr 12\arcmin 18.8\arcsec  & \cyano\, (3-2)\footnotemark[P]   \\
+ {\bf Bania-4       } 			&  17$^{\mathrm{h}}$52$^{\mathrm{m}}$15.85$^{\mathrm{s}}$   & -26\degr 26\arcmin 23.05\arcsec  & \cyano\, (3-2)\footnotemark[P]   \\
+ {\bf Bania-5       } 			&  17$^{\mathrm{h}}$51$^{\mathrm{m}}$10.75$^{\mathrm{s}}$   &  -26\degr 37\arcmin 16.74\arcsec  & \cyano\, (3-2)\footnotemark[P]    \\
+ {\bf G1.6-0.025            } 		&  17$^{\mathrm{h}}$49$^{\mathrm{m}}$19.9$^{\mathrm{s}}$     & -27\degr 34\arcmin 11.0\arcsec & \cyano\, (3-2)\footnotemark[P], (5-4)\footnotemark[J], (10-9)\footnotemark[J]  \\
+ {\bf Sgr D      } 				&  17$^{\mathrm{h}}$48$^{\mathrm{m}}$41.11$^{\mathrm{s}}$   &  -28\degr 01\arcmin 48.67\arcsec  & \cyano\, (3-2)\footnotemark[P], (5-4)\footnotemark[J], (10-9)\footnotemark[J]    \\
+ {\bf M0.83-0.10            } 		&  17$^{\mathrm{h}}$47$^{\mathrm{m}}$57.9$^{\mathrm{s}}$     & -28\degr 17\arcmin 00.0\arcsec & \cyano\, (3-2)\footnotemark[P], (5-4)\footnotemark[J], (10-9)\footnotemark[J] \\
+ {\bf (E) Sgr B2      } 		&  17$^{\mathrm{h}}$47$^{\mathrm{m}}$43.89$^{\mathrm{s}}$   & -28\degr 21\arcmin 35.38\arcsec  & \cyano\, (3-2)\footnotemark[P], (5-4)\footnotemark[J], (10-9)\footnotemark[J]    \\
+ {\bf Sgr B2 (N)            } 		&  17$^{\mathrm{h}}$47$^{\mathrm{m}}$20.1$^{\mathrm{s}}$     & -28\degr 22\arcmin 21.0\arcsec & \cyano\, (3-2)\footnotemark[P], (5-4)\footnotemark[J], (9-8)\footnotemark[J], (10-9)\footnotemark[J], (11-10)\footnotemark[J], (12-11)\footnotemark[J], (24-23)\footnotemark[A] \\
+ {\bf Sgr B2 (M)            } 		&  17$^{\mathrm{h}}$47$^{\mathrm{m}}$20.3$^{\mathrm{s}}$     & -28\degr 23\arcmin 06.0\arcsec & \cyano\, (3-2)\footnotemark[P], (5-4)\footnotemark[J], (9-8)\footnotemark[J], (10-9)\footnotemark[J], (11-10)\footnotemark[J], (12-11)\footnotemark[J], (24-23)\footnotemark[A] \\
+ {\bf (W) Sgr B2     } 		&  17$^{\mathrm{h}}$47$^{\mathrm{m}}$01.77$^{\mathrm{s}}$   & -28\degr 22\arcmin 15.19\arcsec  & \cyano\, (3-2)\footnotemark[P], (5-4)\footnotemark[J], (10-9)\footnotemark[J]    \\
+ {\bf Sgr B1                 } 		&  17$^{\mathrm{h}}$46$^{\mathrm{m}}$46.71$^{\mathrm{s}}$   & -28\degr 31\arcmin 58.85\arcsec  & \cyano\, (3-2)\footnotemark[P], (5-4)\footnotemark[J], (10-9)\footnotemark[J]    \\
+ {\bf Dust ridge            } 		&  17$^{\mathrm{h}}$46$^{\mathrm{m}}$11.5$^{\mathrm{s}}$     & -28\degr 37\arcmin 10.0\arcsec & \cyano\, (3-2)\footnotemark[P], (5-4)\footnotemark[J], (10-9)\footnotemark[J]  \\
+ {\bf M0.25+0.01-N      } 		&  17$^{\mathrm{h}}$46$^{\mathrm{m}}$07.70$^{\mathrm{s}}$  &  -28\degr 41\arcmin 47.68\arcsec  & \cyano\, (3-2)\footnotemark[P], (5-4)\footnotemark[J], (10-9)\footnotemark[J], (24-23)\footnotemark[A]    \\
+ {\bf M0.25+0.01-S      } 		&  17$^{\mathrm{h}}$46$^{\mathrm{m}}$10.3$^{\mathrm{s}}$     & -28\degr 43\arcmin 37.0\arcsec & \cyano\, (3-2)\footnotemark[P], (4,3)\footnotemark[P], (5-4)\footnotemark[P]\footnotemark[J], (10-9)\footnotemark[J], (24-23)\footnotemark[A]  \\
+ {\bf G0.18-0.04            } 		&  17$^{\mathrm{h}}$46$^{\mathrm{m}}$14.0$^{\mathrm{s}}$     & -28\degr 46\arcmin 49.0\arcsec & \cyano\, (3-2)\footnotemark[M], (5-4)\footnotemark[P]\footnotemark[J], (10-9)\footnotemark[J]  \\
+ {\bf M0.16-0.10            } 		&  17$^{\mathrm{h}}$46$^{\mathrm{m}}$26.8$^{\mathrm{s}}$     & -28\degr 51\arcmin 05.0\arcsec & \cyano\, (3-2)\footnotemark[P], (5-4)\footnotemark[J], (10-9)\footnotemark[J]  \\
+ {\bf M0.11-0.08 (`Sticks')  } 	&  17$^{\mathrm{h}}$46$^{\mathrm{m}}$13.3$^{\mathrm{s}}$     & -28\degr 53\arcmin 29.0\arcsec & \cyano\, (3-2)\footnotemark[P], (5-4)\footnotemark[J], (10-9)\footnotemark[J], (24-23)\footnotemark[A]  \\
+ {\bf M0.07-0.08 (`Bricks')  } 	&  17$^{\mathrm{h}}$46$^{\mathrm{m}}$04.36$^{\mathrm{s}}$   & -28\degr 55\arcmin 33.32\arcsec & \cyano\, (3-2)\footnotemark[P], (5-4)\footnotemark[J], (10-9\footnotemark[J])   \\
+ {\bf Polar Arc             } 		&  17$^{\mathrm{h}}$45$^{\mathrm{m}}$06.6$^{\mathrm{s}}$     & -28\degr 46\arcmin 27.0\arcsec & \cyano\, (3-2)\footnotemark[M], (5-4)\footnotemark[P]\footnotemark[J], (10-9)\footnotemark[J] \\
+ {\bf G0.07+0.04            } 		&  17$^{\mathrm{h}}$45$^{\mathrm{m}}$37.5$^{\mathrm{s}}$     & -28\degr 52\arcmin 40.0\arcsec & \cyano\, (3-2)\footnotemark[P], (5-4)\footnotemark[P]\footnotemark[J], (10-9)\footnotemark[J]  \\
+ {\bf M-0.02-0.07           } 		&  17$^{\mathrm{h}}$45$^{\mathrm{m}}$52.4$^{\mathrm{s}}$     & -28\degr 59\arcmin 02.0\arcsec & \cyano\, (3-2)\footnotemark[M], (4,3)\footnotemark[P], (5-4)\footnotemark[M], (10-9)\footnotemark[J], (24-23)\footnotemark[A]  \\
+  {\bf M-0.02-0.07 (b)           } 		&  17$^{\mathrm{h}}$45$^{\mathrm{m}}$52.4$^{\mathrm{s}}$     & -28\degr 59\arcmin 02.0\arcsec & \cyano\, (3-2)\footnotemark[M], (5-4)\footnotemark[M], (10-9)\footnotemark[J], (24-23)\footnotemark[A], (31-30)\footnotemark[A]  \\
+ {\bf S. Streamer } 	&  17$^{\mathrm{h}}$45$^{\mathrm{m}}$39.5$^{\mathrm{s}}$     & -29\degr 01\arcmin 07.0\arcsec & \cyano\, (3-2)\footnotemark[M], (5-4)\footnotemark[P]\footnotemark[J], (10-9)\footnotemark[J]  \\
+ {\bf M-0.13-0.08 (b)         } 		&  17$^{\mathrm{h}}$45$^{\mathrm{m}}$37.9$^{\mathrm{s}}$     & -29\degr 03\arcmin 52.0\arcsec & \cyano\, (3-2)\footnotemark[M], (5-4)\footnotemark[P]\footnotemark[J], (10-9)\footnotemark[J], (24-23)\footnotemark[A]  \\
+ {\bf M-0.13-0.08           } 		&  17$^{\mathrm{h}}$45$^{\mathrm{m}}$37.4$^{\mathrm{s}}$     & -29\degr 05\arcmin 37.0\arcsec & \cyano\, (3-2)\footnotemark[M], (4,3)\footnotemark[P], (5-4)\footnotemark[J], (10-9)\footnotemark[J], (24-23)\footnotemark[A]   \\
+ {\bf M-0.32-0.19           } 		&  17$^{\mathrm{h}}$45$^{\mathrm{m}}$37.7$^{\mathrm{s}}$     & -29\degr 18\arcmin 28.0\arcsec & \cyano\, (3-2)\footnotemark[P], (5-4)\footnotemark[J], (10-9)\footnotemark[J] \\
+ {\bf Sgr C                 } 		&  17$^{\mathrm{h}}$44$^{\mathrm{m}}$40.7$^{\mathrm{s}}$     & -29\degr 27\arcmin 59.0\arcsec & \cyano\, (3-2)\footnotemark[P], (5-4)\footnotemark[J], (10-9)\footnotemark[J]  \\
+& & &  \\
+\hline
+\end{tabular}
+\label{Sources}
+\end{table}
+\noindent\footnotesize{$^{\mathrm{P}}${Single-pointing GBT observation}\\
+\footnotesize{$^{\mathrm{M}}${Covered in GBT maps}\\
+\footnotesize{$^{\mathrm{J}}$Covered in maps from Jones et al. (2008,2012,2013)}\\
+\footnotesize{$^{\mathrm{A}}$Detected in APEX maps}\\
+\clearpage
+
+
+\LongTables
+\centering
+\begin{deluxetable*}{lrlcccccc}
+\tablecaption{\cyano\, Line Parameters}
+\\[0.5ex]
+\hline\hline
+& & & & & & & &   \\
+Source & Species &Transition & Res & T$_{\rm MB}$ & v$_{center}$ & $\Delta$v  & Velocity-integrated T$_{\rm mb}$ & Column Density \\ 
+             &              &                 & ($\arcsec$) & ( K )  & ( km s$^{-1}$ ) &  ( km s$^{-1}$ )&  ( K km s$^{-1}$ )& ( cm$^{-1}$ )  \\ [0.5ex]
+\hline
+ {\bf Sgr C           } & \cyano & (3-2) & 28$\arcsec$ &  1.640$\pm$0.041 & -52.1$\pm$0.1 &   6.9$\pm$0.2 &   12.07$\pm$ 0.44 &  9.4$\pm$0.34 $\times 10^{12}$ \\
+  				&             &  (10-9)\footnotemark[a] & 40$\arcsec$ & 1.033$\pm$0.029&-52.9$\pm$0.1 & 9.3$\pm$0.3&10.26$\pm$0.32 & \\
+ 			    & \isoa & (3-2)  &  28$\arcsec$   & $<$ 0.030 & & & & \\
+			    & \isob & (3-2)  &  28$\arcsec$    & $<$ 0.046 & & & & \\
+			    & \isoc & (3-2)  &  28$\arcsec$  & $<$ 0.046 & & & & \\
+ \hline
+ {\bf M-0.32-0.19    } & \cyano & (3-2) & 28$\arcsec$ &  0.377$\pm$0.069 &  23.3$\pm$0.9 &  10.1$\pm$2.2 &    4.06$\pm$ 1.15 &  3.2$\pm$0.89 $\times 10^{12}$ \\
+ 			    &  \isoa & (3-2)   &  28$\arcsec$  & $<$ 0.039 & & & & \\
+			    & \isob & (3-2)    &  28$\arcsec$  & $<$ 0.073 & & & & \\
+			    & \isoc & (3-2)  &  28$\arcsec$  & $<$ 0.073 & & & & \\
+\hline
+ {\bf M+0.16 -0.10   } & \cyano & (3-2) & 28$\arcsec$ &  0.823$\pm$0.060 &  65.1$\pm$0.7 &  20.8$\pm$1.8 &   18.24$\pm$ 2.03 &  1.4$\pm$0.16 $\times 10^{13}$ \\
+   				&             &  (10-9)\footnotemark[a]  & 40$\arcsec$ & 0.287$\pm$0.016 & 60.8$\pm$0.3 & 12.6$\pm$0.9 &3.85$\pm$0.24 & \\
+ 				& \isoa & (3-2)  &  28$\arcsec$  & $<$ 0.110 & & & & \\ 
+				& \isob & (3-2)  &  28$\arcsec$  & $<$ 0.075 & & & & \\  
+				& \isoc & (3-2)  &  28$\arcsec$   & $<$ 0.075 & & & & \\
+\hline
+ {\bf M+0.83-0.10    } & \cyano & (3-2)  & 28$\arcsec$ &  0.414$\pm$0.048 &  27.5$\pm$2.1 &  37.0$\pm$5.0 &   16.29$\pm$ 2.89 &  1.3$\pm$0.23 $\times 10^{13}$ \\
+ 				& \isoa  & (3-2)     &28$\arcsec$  & $<$ 0.060 & & & & \\
+				& \isob & (3-2)    & 28$\arcsec$  &$<$ 0.112 & & & & \\
+				& \isoc & (3-2)   & 28$\arcsec$  &$<$ 0.112 & & & & \\
+\hline
+ {\bf G+1.6-0.025     } & \cyano & (3-2) & 28$\arcsec$ &  1.513$\pm$0.041 & 160.5$\pm$0.3 &  21.4$\pm$0.7 &   34.48$\pm$ 1.44 &  2.7$\pm$0.11 $\times 10^{13}$ \\    
+ 				&             &  (10-9)\footnotemark[a] & 40$\arcsec$ & 0.471$\pm$0.018 & 155.8$\pm$0.4 & 23.1$\pm$1.1& 11.567$\pm$0.50 & \\
+ 				& \isoa  & (3-2)  &  28$\arcsec$  & $<$ 0.090 & & & & \\
+				& \isob & (3-2)   &  28$\arcsec$   & $<$ 0.101 & & & & \\
+				& \isoc & (3-2)   &  28$\arcsec$   & $<$ 0.101 & & & & \\
+\hline
+ {\bf G+1.6-0.025  (2)   } &	\cyano  &  (10-9)\footnotemark[a] & 40$\arcsec$ &0.599$\pm$0.031 & 48.7$\pm$0.4& 17.0$\pm$1.1 & 10.86$\pm$0.63& \\			
+\hline
+ {\bf M0.11-0.08      } & \cyano & (3-2)  & 28$\arcsec$ &  5.572$\pm$0.244 &  52.1$\pm$0.4 &  19.6$\pm$1.0 &  116.17$\pm$ 7.78 &  9.1$\pm$0.61 $\times 10^{13}$ \\  
+ 				&             &  (10-9)\footnotemark[a] & 40$\arcsec$ & 2.649$\pm$0.038 & 6.4$\pm$0.1& 16.3$\pm$0.3 & 46.01$\pm$0.04 & \\
+  				&             &  (24-23)\footnotemark[a] & 40$\arcsec$ & 0.161$\pm$0.012 & 50.1$\pm$0.6 & 16.6$\pm$1.5 & 2.83$\pm$0.24& \\
+ 				& \isoa & (3-2)   &  28$\arcsec$    &  0.179$\pm$0.036 &  52.3$\pm$1.1 &  11.5$\pm$2.7 &    2.20$\pm$ 0.68 &  1.7$\pm$0.53 $\times 10^{12}$ \\
+				& \isob & (3-2)   &  28$\arcsec$    &   0.216$\pm$0.035 &  52.9$\pm$1.3 &  16.0$\pm$3.1 &    3.68$\pm$ 0.92 &  2.9$\pm$0.72 $\times 10^{12}$ \\
+				& \isoc & (3-2)    &  28$\arcsec$  &   0.209$\pm$0.036 &  51.7$\pm$1.3 &  15.1$\pm$3.1 &    3.36$\pm$ 0.90 &  2.6$\pm$0.70 $\times 10^{12}$ \\ 
+\hline
+ {\bf Dust Ridge      } & \cyano & (3-2) & 28$\arcsec$ &  1.247$\pm$0.080 &  -0.3$\pm$0.6 &  19.3$\pm$1.4 &   25.56$\pm$ 2.50 &  2.0$\pm$0.19 $\times 10^{13}$ \\ 
+  				&             &  (10-9)\footnotemark[a] & 40$\arcsec$ & 0.953$\pm$0.021 & 22.3$\pm$0.2 &17.2$\pm$0.5 & 17.483$\pm$0.426 & \\
+ 				& \isoa & (3-2)    &  28$\arcsec$  & $<$ 0.086 & & & & \\
+				& \isob & (3-2)    &  28$\arcsec$  & $<$ 0.100 & & & & \\
+				& \isoc & (3-2)   &  28$\arcsec$  & $<$ 0.100 & & & & \\
+\hline
+ {\bf Sgr B2 (N)        } & \cyano & (3-2) & 28$\arcsec$ & -5.645$\pm$0.510 &  62.8$\pm$0.4 &  10.0$\pm$1.0 &  -60.26$\pm$-8.31 &   \\  
+ 				&             &  (10-9)\footnotemark[a] & 40$\arcsec$ & 4.340$\pm$0.030 &64.9$\pm$0.1 & 24.7$\pm$0.2& 114.19$\pm$0.86& \\
+ 				&             &  (24-23)\footnotemark[a] & 40$\arcsec$ & & & & & \\
+                                & \isoa & (3-2)    &  28$\arcsec$ & -0.410$\pm$0.074 &  63.1$\pm$0.6 &   6.9$\pm$1.5 &   -3.00$\pm$-0.86 &\\
+                                & \isob & (3-2)  &  28$\arcsec$    &  -0.308$\pm$0.039 &  61.7$\pm$0.6 &  10.2$\pm$1.5 &   -3.34$\pm$-0.64 &  \\  
+                                & \isoc & (3-2)  &  28$\arcsec$   &  -0.331$\pm$0.049 &  63.1$\pm$0.5 &   7.7$\pm$1.4 &   -2.71$\pm$-0.64 & \\
+\hline
+ {\bf Sgr B2 (M)       } & \cyano & (3-2) & 28$\arcsec$ & -8.022$\pm$0.394 &  65.1$\pm$0.4 &  14.7$\pm$0.8 & -125.54$\pm$-9.42 &   \\  
+ 				&             &  (10-9)\footnotemark[a] & 40$\arcsec$ &4.965$\pm$0.043 & 60.2$\pm$0.1 & 21.1$\pm$0.2& 111.37$\pm$1.04& \\
+ 				&             &  (24-23)\footnotemark[a] & 40$\arcsec$ & 2.296$\pm$0.015 & 61.3$\pm$0.1 & 16.0$\pm$0.1& 39.03$\pm$0.30 & \\
+                                & \isoa & (3-2)   &  28$\arcsec$  & -0.451$\pm$0.030 &  64.2$\pm$0.5 &  14.1$\pm$1.1 &   -6.75$\pm$-0.68 &   \\
+                                & \isob & (3-2)  &  28$\arcsec$  &  -0.319$\pm$0.033 &  65.1$\pm$0.7 &  13.5$\pm$1.6 &   -4.60$\pm$-0.74 &   \\
+                                & \isoc & (3-2)    &  28$\arcsec$  &  -0.339$\pm$0.034 &  64.6$\pm$0.6 &  13.3$\pm$1.5 &   -4.79$\pm$-0.73 &   \\  
+\hline
+ {\bf G0.18-0.04      } & \cyano & (3-2) & 28$\arcsec$ &  0.784$\pm$0.084 &  23.3$\pm$0.6 &  10.7$\pm$1.3 &    8.92$\pm$ 1.46 &  7.0$\pm$1.14 $\times 10^{12}$ \\ 
+ 				&             &  (3-2)\footnotemark[a]  & 40$\arcsec$ & 0.595$\pm$0.013  & lo & 11.0$\pm$0.3 & 6.97$\pm$0.19 & \\
+ 				&             & (5-4)  &  17$\arcsec$ &  0.892$\pm$0.035 &  23.1$\pm$0.2 &  10.4$\pm$0.5 &    9.88$\pm$ 0.59 &  7.7$\pm$0.46 $\times 10^{12}$ \\
+ 				&             &  (10-9)\footnotemark[a] & 40$\arcsec$ & 0.417$\pm$0.017 & 23.9$\pm$0.2 & 8.5$\pm$0.4  &3.78$\pm$0.17 & \\
+				& \isoa & (3-2)   &  28$\arcsec$  & $<$ 0.026 & & & & \\   
+				&		& (5-4)   &  17$\arcsec$ & $<$ 0.035 & & & & \\ 
+				& \isob & (3-2)  &  28$\arcsec$    & $<$ 0.029 & & & & \\  
+				&	& (5-4)    &  17$\arcsec$ & $<$ 0.041 & & & & \\
+				& \isoc & (3-2)   &  28$\arcsec$   & $<$ 0.029 & & & & \\
+				&	& (5-4)   &  17$\arcsec$ & $<$ 0.041 & & & & \\ 
+\hline
+ {\bf G0.18-0.04  (2)    } &	\cyano &  (3-2)\footnotemark[a]  & 40$\arcsec$ &  0.291$\pm$0.011& hi & 17.9$\pm$0.8 &5.52$\pm$0.21 & \\		
+  				&             &  (10-9)\footnotemark[a] & 40$\arcsec$ & 0.129$\pm$0.019 & 80.2$\pm$1.3 & 20.5$\pm$4.0 & 2.81$\pm$0.49 & \\
+\hline
+ {\bf G0.07+0.04      } & \cyano & (3-2) & 28$\arcsec$ &  0.689$\pm$0.025 & -32.0$\pm$0.3 &  17.8$\pm$0.7 &   13.02$\pm$ 0.72 &  1.0$\pm$0.06 $\times 10^{13}$ \\   
+ 			        &            &  (5-4) &  17$\arcsec$ &  1.275$\pm$0.067 & -32.0$\pm$0.5 &  19.8$\pm$1.2 &   26.83$\pm$ 2.15 &  2.1$\pm$0.17 $\times 10^{13}$ \\   
+ 				&             &  (10-9)\footnotemark[a] & 40$\arcsec$ &0.250$\pm$0.016 & -33.9$\pm$0.7 & 23.0$\pm$1.8 & 6.11$\pm$0.44 &\\
+			        & \isoa & (3-2)  &  28$\arcsec$  & $<$ 0.022 & & & & \\    
+			        	&	& (5-4) &  17$\arcsec$ & $<$ 0.025 & & & & \\   
+			        & \isob & (3-2)   &  28$\arcsec$  & $<$ 0.018 & & & & \\ 
+			        &	& (5-4)  &  17$\arcsec$ & $<$ 0.025 & & & & \\    
+			        & \isoc & (3-2)   &  28$\arcsec$   & $<$ 0.018 & & & & \\ 
+			        &	& (5-4)  &  17$\arcsec$ & $<$ 0.025 & & & & \\  
+\hline
+ {\bf Polar Arc       } & \cyano & (3-2)  & 28$\arcsec$ &  0.630$\pm$0.020 & 104.3$\pm$0.3 &  19.3$\pm$0.7 &   12.96$\pm$ 0.64 &  1.0$\pm$0.05 $\times 10^{13}$ \\   
+ 				&             &  (3-2)\footnotemark[a] & 40$\arcsec$  & 0.621$\pm$0.017 & &24.6$\pm$0.7 & 16.26$\pm$0.46 & \\
+   			     &              & (5-4) &  17$\arcsec$ &  0.708$\pm$0.012 & 104.6$\pm$0.2 &  21.0$\pm$0.4 &   15.84$\pm$ 0.40 &  1.2$\pm$0.03 $\times 10^{13}$ \\     
+ 				&             &  (10-9)\footnotemark[a] & 40$\arcsec$ & 0.232$\pm$0.015 & 101.7$\pm$0.5 & 16.7$\pm$1.3 & 4.12$\pm$0.29 & \\
+			     & \isoa & (3-2)    &  28$\arcsec$  & $<$ 0.050 & & & & \\
+			     &		& (5-4)   &  17$\arcsec$ & $<$ 0.032 & & & & \\ 
+			     & \isob & (3-2)   &  28$\arcsec$  & $<$ 0.044 & & & & \\ 
+			     &		& (5-4)   &  17$\arcsec$ & $<$ 0.027 & & & & \\ 
+			     & \isoc & (3-2)   &  28$\arcsec$  & $<$ 0.044 & & & & \\  
+			     &		& (5-4)  &  17$\arcsec$  & $<$ 0.027 & & & & \\ 
+\hline
+ {\bf S. Streamer} & \cyano & (3-2)  & 28$\arcsec$ &  0.394$\pm$0.020 &  34.0$\pm$0.2 &   8.5$\pm$0.5 &    3.57$\pm$ 0.28 &  2.8$\pm$0.21 $\times 10^{12}$ \\   
+                            &    		&  (3-2)\footnotemark[a]  & 40$\arcsec$ &  1.088$\pm$0.008 & & 23.0$\pm$0.2 &  26.69$\pm$0.21& \\
+                              & \isoa & (3-2)  &  28$\arcsec$   & $<$ 0.035 & & & & \\ 
+                              & \isob & (3-2)  &  28$\arcsec$  & $<$ 0.039 & & & & \\     
+                              & \isoc & (3-2)  &  28$\arcsec$  & $<$ 0.039 & & & & \\     
+\hline
+ {\bf M+0.25+0.01     } & \cyano &  (3-2) & 28$\arcsec$ &  3.781$\pm$0.056 &  33.7$\pm$0.1 &  20.3$\pm$0.3 &   81.82$\pm$ 1.85 &  6.4$\pm$0.14 $\times 10^{13}$ \\  
+                                   &              &  (4-3)  & 21$\arcsec$ &  5.791$\pm$0.097 &  34.1$\pm$0.2 &  21.4$\pm$0.4 &  131.73$\pm$ 3.36 &  1.0$\pm$0.03 $\times 10^{14}$ \\    
+                                  &              &  (5-4)  &  17$\arcsec$ &  5.901$\pm$0.036 &  33.9$\pm$0.1 &  19.4$\pm$0.1 &  122.13$\pm$ 1.13 &  9.5$\pm$0.09 $\times 10^{13}$ \\  
+ 				&             &  (10-9)\footnotemark[a] & 40$\arcsec$ &1.904$\pm$0.027 & 34.4$\pm$0.1 &19.7$\pm$0.3 & 39.97$\pm$0.61& \\
+ 				&             &  (24-23)\footnotemark[a] & 40$\arcsec$ & 0.120$\pm$0.010 & 34.8$\pm$0.6 & 13.7$\pm$1.5 & 1.75$\pm$0.17 & \\
+                                  & \isoa & (3-2) &  28$\arcsec$   &  0.157$\pm$0.020 &  34.4$\pm$1.5 &  23.0$\pm$3.4 &    3.83$\pm$ 0.76 &  3.0$\pm$0.59 $\times 10^{12}$ \\   
+                                  &		& (5-4)   &  17$\arcsec$ &  0.336$\pm$0.009 &  33.4$\pm$0.3 &  18.1$\pm$0.6 &    6.46$\pm$ 0.28 &  5.0$\pm$0.22 $\times 10^{12}$ \\
+                                  & \isob & (3-2)   & 28$\arcsec$ &  0.095$\pm$0.009 &  33.9$\pm$0.7 &  15.4$\pm$1.8 &    1.56$\pm$ 0.23 &  1.2$\pm$0.18 $\times 10^{12}$ \\
+                                  & 	& (5-4)  & 17 $\arcsec$ &  0.332$\pm$0.019 &  33.9$\pm$0.5 &  17.7$\pm$1.3 &    6.24$\pm$ 0.58 &  4.9$\pm$0.46 $\times 10^{12}$ \\  
+                                  & \isoc & (3-2) &  28$\arcsec$ & 0.115$\pm$0.007 &  33.7$\pm$0.7 &  21.4$\pm$1.8 &    2.63$\pm$ 0.28 &  2.1$\pm$0.22 $\times 10^{12}$ \\
+                                  &	 & (5-4)  & 17 $\arcsec$ &  0.269$\pm$0.020 &  33.8$\pm$0.6 &  15.8$\pm$1.5 &    4.51$\pm$ 0.54 &  3.5$\pm$0.42 $\times 10^{12}$ \\  
+\hline
+ {\bf M-0.02-0.07     } & \cyano & (3-2) & 28$\arcsec$ &  3.310$\pm$0.034 &  48.9$\pm$0.1 &  24.6$\pm$0.3 &   86.62$\pm$ 1.37 &  6.8$\pm$0.11 $\times 10^{13}$ \\   
+ 				&    		&  (3-2)\footnotemark[a]  & 40$\arcsec$ & 3.463 $\pm$0.012& & 24.0$\pm$0.1 &  88.58$\pm$0.35& \\
+                                 &              & (4-3) & 21$\arcsec$ &  6.506$\pm$0.207 &  45.7$\pm$0.4 &  24.6$\pm$0.9 &  170.13$\pm$ 8.26 &  1.3$\pm$0.06 $\times 10^{14}$ \  
+                                 &             &  (4-3)\footnotemark[b]  & 40$\arcsec$  & & & & \\
+                                 &             &  (5-4)\footnotemark[a] & 40$\arcsec$ & 5.004$\pm$0.026 & & 23.9$\pm$0.1 & 79.80$\pm$0.46& \\
+ 				&             &  (10-9)\footnotemark[a] & 40$\arcsec$ & 2.862$\pm$0.022 &46.8$\pm$0.1 &24.6$\pm$0.2 & 74.84$\pm$0.62& \\
+ 				&             &  (24-23)\footnotemark[a] & 40$\arcsec$ & 0.337$\pm$0.011 & 43.7$\pm$0.4 & 22.6$\pm$1.0 & 8.11$\pm$0.32& \\
+                                 & \isoa & (3-2)    &  28$\arcsec$   &  0.126$\pm$0.008 &  50.2$\pm$0.9 &  31.0$\pm$2.2 &    4.17$\pm$ 0.39 &  3.3$\pm$0.30 $\times 10^{12}$ \\
+ 				&    		&  (3-2)\footnotemark[a] & 40$\arcsec$ & 0.087$\pm$0.004 & & 19.5$\pm$1.3 & 1.82$\pm$0.01 & \\
+                                 &             &  (5-4)\footnotemark[a] & 40$\arcsec$ & 0.269$\pm$0.032 & & 21.1$\pm$3.1 & 6.05$\pm$0.81 & \\
+                                 & \isob & (3-2)     & 28$\arcsec$ &  0.078$\pm$0.008 &  48.9$\pm$1.7 &  21.7$\pm$3.8 &    1.80$\pm$ 0.36 &  1.4$\pm$0.28 $\times 10^{12}$ \\
+                                 & \isoc & (3-2)    & 28$\arcsec$  & 0.103$\pm$0.007 &  49.2$\pm$1.3 &  23.5$\pm$3.1 &    2.57$\pm$ 0.38 &  2.0$\pm$0.30 $\times 10^{12}$ \\
+\hline
+ {\bf M-0.02-0.07  (b)} & \cyano & (3-2)\footnotemark[a]  & 40$\arcsec$ & 3.610 $\pm$0.018 & 24.5$\pm$0.1 & 23.2$\pm$0.1 & 89.19 $\pm$0.48 &   \\   
+                                  &             &  (5-4)\footnotemark[a] & 40$\arcsec$ & 5.553 $\pm$0.025 & 27.5 $\pm$0.1 & 23.3$\pm$0.1& 138.00 $\pm$0.663 & \\
+ 				&             &  (10-9)\footnotemark[a] & 40$\arcsec$ & & & &  \\
+ 				&             &  (24-23)\footnotemark[a] & 40$\arcsec$ & & & &  \\
+ 				&             &  (31-30)\footnotemark[a] & 40$\arcsec$ & 0.119$\pm$0.021 & 48.0$\pm$0.08 & 9.0$\pm$0.1 &  \\	
+\hline
+ {\bf M-0.13-0.08 (b1)} & \cyano & (3-2) & 28$\arcsec$ &  3.844$\pm$0.238 &  10.3$\pm$0.5 &  16.3$\pm$1.2 &   66.65$\pm$ 6.30 &  5.2$\pm$0.49 $\times 10^{13}$ \\ 
+ 				&             &  (3-2)\footnotemark[a] & 40$\arcsec$ & 3.251$\pm$0.019 & & 19.5$\pm$0.1 &  67.48$\pm$0.43& \\
+				&              & (5-4)  & 17 $\arcsec$ &  4.828$\pm$0.315 &  12.8$\pm$0.2 &   7.8$\pm$0.4 &   40.26$\pm$ 3.44 &  3.1$\pm$0.27 $\times 10^{13}$ \\ 
+ 				&             &  (10-9)\footnotemark[a] & 40$\arcsec$ & 2.774$\pm$0.679 & 8.5$\pm$0.1 & 17.7$\pm$0.2 & 52.32$\pm$0.68& \\
+ 				&             &  (24-23)\footnotemark[a] & 40$\arcsec$ & 0.138$\pm$0.015 & 6.6$\pm$0.7 & 13.9$\pm$2.1 & 2.03$\pm$0.26 & \\				
+				& \isoa & (3-2)  &  28$\arcsec$  &  0.161$\pm$0.019 &  12.0$\pm$0.5 &   8.2$\pm$1.1 &    1.40$\pm$ 0.25 &  1.1$\pm$0.19 $\times 10^{12}$ \\
+				& 	    & (5-4)    & 17 $\arcsec$ &  0.273$\pm$0.030 &  11.7$\pm$0.2 &   5.4$\pm$0.8 &    1.58$\pm$ 0.29 &  1.2$\pm$0.22 $\times 10^{12}$ \\
+				& \isob & (3-2)   &  28$\arcsec$ & 0.140$\pm$0.022 &  11.7$\pm$0.7 &   9.8$\pm$1.8 &    1.45$\pm$ 0.35 &  1.1$\pm$0.27 $\times 10^{12}$ \\
+				&         & (5-4)  & 17$\arcsec$ &  0.352$\pm$0.020 &  12.1$\pm$0.1 &   5.8$\pm$0.4 &    2.18$\pm$ 0.19 &  1.7$\pm$0.15 $\times 10^{12}$ \\  
+				& \isoc & (3-2)    &  28$\arcsec$ & 0.121$\pm$0.021 &  11.0$\pm$0.9 &  10.9$\pm$2.1 &    1.40$\pm$ 0.37 &  1.1$\pm$0.29 $\times 10^{12}$ \\
+				&          & (5-4)    & 17$\arcsec$ &  0.352$\pm$0.020 &  12.1$\pm$0.1 &   5.8$\pm$0.4 &    2.18$\pm$ 0.19 &  1.7$\pm$0.15 $\times 10^{12}$ \\				
+\hline
+ {\bf M-0.13-0.08 (b2)} & \cyano & (5-4)   & 17 $\arcsec$ &  3.070$\pm$0.114 &   2.1$\pm$0.7 &  14.2$\pm$1.3 &   46.33$\pm$ 4.61 &  3.6$\pm$0.36 $\times 10^{13}$ \\ 
+				& \isoa & (5-4)   & 17 $\arcsec$ &  0.112$\pm$0.016 &   4.3$\pm$1.8 &  19.3$\pm$2.8 &    2.30$\pm$ 0.47 &  1.8$\pm$0.37 $\times 10^{12}$ \\ 
+				& \isob & (5-4)  & 17$\arcsec$ &  0.136$\pm$0.009 &   1.6$\pm$0.8 &  13.5$\pm$1.8 &    1.95$\pm$ 0.30 &  1.5$\pm$0.23 $\times 10^{12}$ \\
+				& \isoc &  (5-4)   & 17$\arcsec$ &  0.136$\pm$0.009 &   1.6$\pm$0.8 &  13.5$\pm$1.8 &    1.95$\pm$ 0.30 &  1.5$\pm$0.23 $\times 10^{12}$ \\   				
+\hline
+ {\bf M-0.13-0.08     } &   \cyano & (3-2)\footnotemark[a] & 40$\arcsec$ &  3.158$\pm$0.023 & &17.5$\pm$0.1 & 58.803$\pm$0.45 & \\
+ 				&           & (4-3)  & 21$\arcsec$ &  7.725$\pm$0.141 &  20.3$\pm$0.1 &  15.3$\pm$0.3 &  126.06$\pm$ 3.51 &  9.8$\pm$0.27 $\times 10^{13}$ \\
+ 				&            &  (10-9)\footnotemark[a] & 40$\arcsec$ &2.745$\pm$0.027 & 17.8$\pm$0.1 & 19.3$\pm$0.2 & 56.61$\pm$0.61& \\
+				&            &  (24-23)\footnotemark[a] & 40$\arcsec$ & 0.257$\pm$0.012 & 20.0$\pm$0.3 &12.7$\pm$0.7 & 3.47$\pm$0.18 & \\
+\hline
+\footnotetext[1]{Reported quantity is N/T$_{\rm ex}$, in units of cm$^{-2}$ / K.}
+\label{line_fits}
+\end{deluxetable*}
+\noindent\footnotesize{$^{\mathrm{a}}${Fit to a spectrum extracted from a map, using an aperture size of 40''}\\
+\noindent\footnotesize{$^{\mathrm{b}}${Scaled to the expected flux level for an aperture of 40''}\\
+\clearpage
+
+\begin{table}[ht]
+\caption{Isotopic Ratios} 
+\centering
+\begin{tabular}{llllllllll}
+\\[0.5ex]
+\hline\hline
+& & & & & \\
+ & &  \multicolumn{4}{c}{{\bf --------3-2--------}} & \multicolumn{4}{c}{{\bf --------5-4--------}} \\
+{\bf Source}  & {\bf v} & {\bf \cyano/} &{\bf \cyano/} & {\bf \cyano/} & {\bf Avg.}& {\bf \cyano/} &{\bf \cyano/} & {\bf \cyano/} & {\bf Avg.}\\
+& (\kms) &  {\bf \isoa} &{\bf \isob} & {\bf \isoc} & {\bf Ratio} &  {\bf \isoa} &{\bf \isob} & {\bf \isoc} & {\bf Ratio}  \\
+\hline
+ {\bf Bania-1       } 			&  & & & & \\
+ {\bf Bania-2       } 			&  & & & &  \\
+ {\bf Bania-3       } 			&  & & & &  \\
+ {\bf Bania-4       } 			&  & & & &  \\
+ {\bf Bania-5       } 			&  & & & &  \\
+ {\bf G1.6-0.025            } 		&  50  & & & &  \\
+ 						& 155 & >16.5 & > 15.2 & >15.2 & \\
+ {\bf Sgr D      } 				&  & & & & \\
+ {\bf M0.83-0.10            } 		&   & >6.7 & & &\\
+ {\bf Sgr B2-East       } 		&  & & & &  \\
+ {\bf Sgr B2 (N)            } 		&  & & & &  \\
+ {\bf Sgr B2 (M)            } 		&  & & & & \\
+ {\bf Sgr B2-West       } 		&  & & & &   \\
+ {\bf Sgr B1                 } 		&  & & & &    \\
+ {\bf Dust ridge            } 		&  & >14.2 & > 2.9 & >12.9 & \\
+ {\bf M0.25+0.01-N      } 		&   & & & &  \\
+ {\bf M0.25+0.01-S      } 		&   & & & & \\
+ {\bf G0.18-0.04            } 		&   & >32.4 & >20.6 & >20.6 & \\
+ {\bf M0.16-0.10            } 		&   & > 7.3 & >3.8 & >3.8 & \\
+ {\bf M0.11-0.08} 	&  & 30.6  & 26.4 & 27.3 &   \\
+ {\bf M0.07-0.08} 	&  & & & &   \\
+ {\bf Polar Arc             } 		&  >13.6 & >10.9 & >10.9 & & \\
+ {\bf G0.07+0.04            } 		&  & >31.0  & >17.9 & >17.9 &  \\
+ {\bf M-0.02-0.07           } 		& &  27.2 &  & &  \\
+ {\bf S. Streamer} 	&  & & & & \\
+ {\bf M-0.13-0.08-b         } 		&  & & & &  \\
+ {\bf M-0.13-0.08           } 		&  & & & &   \\
+ {\bf M-0.32-0.19           } 		&  & > 9.4 & > 5.3 & > 5.3 & \\
+ {\bf Sgr C                 } 		&  &  >53 &  >36 &  >56 &  \\
+& & &  \\
+\hline
+\end{tabular}
+\label{Sources}
+\end{table}
+
+\clearpage
+
+
+\end{document}
