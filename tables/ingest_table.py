@@ -10,7 +10,10 @@ replacedict = {r'\cyano':'HC3N',
 
 pattern = re.compile('(' + '|'.join(re.escape(x) for x in replacedict.keys()) + ')')
 
-removelist = [r'\footnotemark[a]',r'\footnotemark[b]']
+removelist = [r'\footnotemark[a]',
+              r'\footnotemark[b]',
+              r'\footnotemark{a}',
+             ]
 rmpattern = re.compile('(' + '|'.join(re.escape(x) for x in removelist) + ')')
 
 with open('table.tex') as f:
@@ -98,4 +101,4 @@ table = Table(data=list(zip(*datalines)),
               names=['Source Name', 'Chemical Name', 'Jupper', 'Jlower', 'TMB', 'eTMB', 'VLSR', 'eVLSR', 'width', 'ewidth', 'aperture'],
               dtype=[(str, 20), (str, 10), int, int, float, float, float, float, float, float, int])
 
-table.write("linetable.csv", format='ascii.csv')
+table.write("linetable.csv", format='ascii.csv', overwrite=True)
