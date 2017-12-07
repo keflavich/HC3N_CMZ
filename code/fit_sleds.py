@@ -1,5 +1,9 @@
 import numpy as np
+import imp
 import fitter
+imp.reload(fitter)
+import table_to_sled
+imp.reload(table_to_sled)
 from table_to_sled import sleds
 
 

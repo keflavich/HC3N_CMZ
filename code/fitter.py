@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import warnings
+from astropy import log
 from sled_fitter import pyspeckit, temdencol, temdenabund, temdencolmod
 from constrain_parameters import HC3Nmodel
 from scipy import stats
@@ -15,7 +16,7 @@ def savefig(path, saver=pl):
     dir = os.path.split(path)[0]
     if not os.path.isdir(dir):
         os.mkdir(dir)
-    saver.savefig(path)
+    saver.savefig(path, bbox_inches='tight')
 
 def within(limits, value):
     return limits[0] < value < limits[1]
@@ -32,7 +33,7 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
 
     # Plotting setup
     sp.plotter(marker='s', linestyle='none', errstyle='bars', ymin=0, xmin=0, xmax=30,
-               figure=pl.figure(1))
+               figure=pl.figure(1, figsize=(12,8)))
     inds = np.arange(1,31)
     if len(sp.data) > 2:
         sp.specfit(fittype='hc3n_temdencol',
@@ -45,7 +46,9 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
     linedata = {(int(j),int(j)-1): (d,e) for j,d,e in zip(juppers, data, error) if j<maxj}
     print("Low-J data: {0}".format(linedata))
     print("juppers: {0}".format(juppers))
-    mod.set_constraints(line_brightnesses=linedata)
+    mod.set_constraints(line_brightnesses=linedata, logabundance=-8, elogabundance=2, logh2column=23, elogh2column=2, linewidth=20)
+    assert hasattr(mod.chi2_h2, 'ndim')
+    mod.chi2 += (mod.temparr < 50) * 1e10 + (mod.temparr > 200) * 1e10
     constraints = mod.get_parconstraints()
     print("Low-J parameter constraints: {0}".format(constraints))
 
@@ -55,30 +58,31 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
             else (d,e/5) # measurements.  increase weight on non-upper-limit
             for j,d,e in zip(juppers, data, error)}
     print("linedata2: {0}".format(linedata2))
-    mod2.set_constraints(line_brightnesses=linedata2)
+    mod2.set_constraints(line_brightnesses=linedata2, logabundance=-8, elogabundance=2, logh2column=23, elogh2column=2, linewidth=20)
+    mod2.chi2 += (mod2.temparr < 50) * 1e10 + (mod.temparr > 200) * 1e10
     constraints2 = mod2.get_parconstraints()
     print("Upper-limits for low-J plus fits from high-J: {0}".format(constraints2))
 
     # Plotting parameter constraints
-    pl.figure(2).clf()
+    pl.figure(2, figsize=(12,8)).clf()
     mod.denstemplot()
-    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_denstem/{sourcename}_SLED_fit_denstem.png'.format(sourcename=sourcename))
-    pl.figure(3).clf()
+    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_denstem.png'.format(sourcename=sourcename))
+    pl.figure(3, figsize=(12,8)).clf()
     mod.denscolplot()
-    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_denscol/{sourcename}_SLED_fit_denscol.png'.format(sourcename=sourcename))
-    pl.figure(4).clf()
+    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_denscol.png'.format(sourcename=sourcename))
+    pl.figure(4, figsize=(12,8)).clf()
     mod.coltemplot()
-    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_coltem/{sourcename}_SLED_fit_coltem.png'.format(sourcename=sourcename))
+    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_coltem.png'.format(sourcename=sourcename))
 
-    pl.figure(2).clf()
+    pl.figure(2, figsize=(12,8)).clf()
     mod2.denstemplot()
-    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_highJ_denstem/{sourcename}_SLED_fit_highJ_denstem.png'.format(sourcename=sourcename))
-    pl.figure(3).clf()
+    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_highJ_denstem.png'.format(sourcename=sourcename))
+    pl.figure(3, figsize=(12,8)).clf()
     mod2.denscolplot()
-    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_highJ_denscol/{sourcename}_SLED_fit_highJ_denscol.png'.format(sourcename=sourcename))
-    pl.figure(4).clf()
+    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_highJ_denscol.png'.format(sourcename=sourcename))
+    pl.figure(4, figsize=(12,8)).clf()
     mod2.coltemplot()
-    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_highJ_coltem/{sourcename}_SLED_fit_highJ_coltem.png'.format(sourcename=sourcename))
+    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_highJ_coltem.png'.format(sourcename=sourcename))
 
     # Some statistics - used for overplotting a sample of models
     cdf = stats.chi2.cdf(mod.chi2 - mod.chi2.min(), 3)
@@ -89,7 +93,7 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
     # Plotting: show 100 randomly sampled model overlays selected from the
     # best-fit parameter space
     sp.plotter(marker='s', linestyle='none', errstyle='bars', ymin=0, xmin=0, xmax=30,
-               figure=pl.figure(5), zorder=5)
+               figure=pl.figure(5, figsize=(12,8)), zorder=5)
 
     for dummy in range(100):
         val = np.random.random()
@@ -97,6 +101,8 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
         pars = [mod.temparr.flat[sample_pos],
                 mod.densityarr.flat[sample_pos],
                 mod.columnarr.flat[sample_pos]]
+        if mod.temparr.flat[sample_pos] < 10 or mod.temparr.flat[sample_pos] > 100:
+            continue
         #print("{0:0.3f}: {1:12d}, {2:7.2f}, {3:6.3f}, {4:7.3f}".format(val,
         #                                                               sample_pos,
         #                                                               *pars))
@@ -108,6 +114,8 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
         pars2 = [mod2.temparr.flat[sample_pos2],
                  mod2.densityarr.flat[sample_pos2],
                  mod2.columnarr.flat[sample_pos2]]
+        if mod.temparr.flat[sample_pos2] < 10 or mod.temparr.flat[sample_pos2] > 100:
+            continue
         sp.plotter.axis.plot(inds, temdencol(inds, *pars2),
                              'b-', alpha=0.1, zorder=-10)
 
@@ -129,19 +137,19 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
     parinfo.DENSITY0.value = constraints['density_chi2']
     parinfo.DENSITY0.error = constraints['dmax1sig_chi2'] - constraints['density_chi2']
     sp.plotter(marker='s', linestyle='none', errstyle='bars', ymin=0, xmin=0, xmax=30,
-               figure=pl.figure(5), zorder=5, clear=False)
+               figure=pl.figure(5, figsize=(12,8)), zorder=5, clear=False)
     #sp.specfit.annotate()
 
     sp.plotter.axis.set_xlabel("Rotational Level $J_U$")
     sp.plotter.axis.set_xlim(0,32)
-    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit/{sourcename}_SLED_fit.png'.format(sourcename=sourcename),
+    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit.png'.format(sourcename=sourcename),
             sp.plotter)
 
 
     # Plotting: show a selection of fixed-temperature models at best fit
     # column, volume density
     sp.plotter(marker='s', linestyle='none', errstyle='bars', ymin=0, xmin=0, xmax=30,
-               figure=pl.figure(6), zorder=5)
+               figure=pl.figure(6, figsize=(12,8)), zorder=5)
 
     label = ("T={temperature:0.1f} K,"
              " n=$10^{{{density:0.2f}}}$ cm$^{{-3}}$,"
@@ -173,7 +181,7 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
                              'k:', alpha=0.8, zorder=2,
                              label=label)
 
-        temperatures = [20,50,100,300]
+        temperatures = [50,100,150]
         for t in temperatures:
             sample_pos_t = np.argmin(np.abs(mod2.tarr - t))
             best_pos = np.argmin(mod2.chi2[sample_pos_t,:,:].flat)
@@ -186,7 +194,7 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
                                  '-.', alpha=0.5, linewidth=1, zorder=-11,
                                  label=label)
 
-    temperatures = [20,50,100,300]
+    temperatures = [50,100,150]
     for t in temperatures:
         sample_pos_t = np.argmin(np.abs(mod.tarr - t))
         best_pos = np.argmin(mod.chi2[sample_pos_t,:,:].flat)
@@ -200,15 +208,15 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
                              label=label)
 
     sp.plotter.axis.set_xlabel("Rotational Level $J_U$")
-    sp.plotter.axis.legend(loc='upper right', fontsize=16)
+    sp.plotter.axis.legend(loc='upper right', fontsize=12)
     sp.plotter.axis.set_xlim(0,32)
-    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_exampletems/{sourcename}_SLED_fit_exampletems.png'.format(sourcename=sourcename),
+    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_exampletems.png'.format(sourcename=sourcename),
             sp.plotter)
 
     # Plotting: show a selection of fixed-density models at best fit
     # column, temperature
     sp.plotter(marker='s', linestyle='none', errstyle='bars', ymin=0, xmin=0, xmax=30,
-               figure=pl.figure(6), zorder=5)
+               figure=pl.figure(6, figsize=(12,8)), zorder=5)
 
     label = ("T={temperature:0.1f} K,"
              " n=$10^{{{density:0.2f}}}$ cm$^{{-3}}$,"
@@ -217,6 +225,7 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
                                   density=constraints['density_chi2'],
                                   column=constraints['column_chi2'],)
             )
+    log.info("Constraints being plotted: {0}".format(constraints))
     sp.plotter.axis.plot(inds, temdencol(inds,
                                          temperature=constraints['temperature_chi2'],
                                          density=constraints['density_chi2'],
@@ -249,6 +258,8 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
                     mod2.columnarr[:,sample_pos_d,:].flat[best_pos]]
             label = ("T={0:0.1f} K, n=$10^{{{1:0.2f}}}$ cm$^{{-3}}$, N$=10^{{{2:0.2f}}}$ "
                      "cm$^{{-2}}$".format(pars[0], d, pars[2]))
+            if pars[0] > 100:
+                pars[0] = 100 # highest tem in grid
             sp.plotter.axis.plot(inds, temdencol(inds, *pars),
                                  ':', alpha=0.5, linewidth=1, zorder=-11,
                                  label=label)
@@ -260,6 +271,8 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
         pars = [mod.temparr[:,sample_pos_d,:].flat[best_pos],
                 mod.darr[sample_pos_d],
                 mod.columnarr[:,sample_pos_d,:].flat[best_pos]]
+        if pars[0] > 100:
+            pars[0] = 100 # highest tem in grid
         label = ("T={0:0.1f} K, n=$10^{{{1:0.2f}}}$ cm$^{{-3}}$, N$=10^{{{2:0.2f}}}$ "
                  "cm$^{{-2}}$".format(pars[0], d, pars[2]))
         sp.plotter.axis.plot(inds, temdencol(inds, *pars),
@@ -267,9 +280,9 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
                              label=label)
 
     sp.plotter.axis.set_xlabel("Rotational Level $J_U$")
-    sp.plotter.axis.legend(loc='upper right', fontsize=16)
+    sp.plotter.axis.legend(loc='upper right', fontsize=12)
     sp.plotter.axis.set_xlim(0,32)
-    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_exampledens/{sourcename}_SLED_fit_exampledens.png'.format(sourcename=sourcename),
+    savefig('../figures/fitted_sleds/{sourcename}_SLED_fit_exampledens.png'.format(sourcename=sourcename),
             sp.plotter)
 
 

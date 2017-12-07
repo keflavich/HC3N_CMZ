@@ -130,10 +130,10 @@ class HC3Nmodel(generic_model):
                                     gridsize[1]/self.tline_[lines[0]].shape[1], # density
                                     gridsize[2]/self.tline_[lines[0]].shape[2]], # column
                                    dtype='float')
-        uzinds,uyinds,uxinds = upsinds = np.indices([x*us
+        uzinds,uyinds,uxinds = upsinds = np.indices([int(np.floor(x*us))
                                                      for x,us in zip(self.tline_[lines[0]].shape,
                                                                      upsample_factor)],
-                                                   dtype='float')
+                                                    dtype='float')
         self.tline = {trans: map_coordinates(self.tline_[trans],
                                              upsinds/upsample_factor[:,None,None,None],
                                              mode='nearest')
