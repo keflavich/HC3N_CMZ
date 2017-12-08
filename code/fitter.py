@@ -12,6 +12,10 @@ valid_fn_chars = "._-+"+string.ascii_letters+string.digits
 mod = HC3Nmodel()
 mod2 = HC3Nmodel()
 
+colors = {50: 'r',
+          100: 'b',
+          150: 'm',}
+
 def savefig(path, saver=pl):
     dir = os.path.split(path)[0]
     if not os.path.isdir(dir):
@@ -192,6 +196,7 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
                      "cm$^{{-2}}$".format(t, pars[1], pars[2]))
             sp.plotter.axis.plot(inds, temdencol(inds, *pars),
                                  '-.', alpha=0.5, linewidth=1, zorder=-11,
+                                 color=colors[t],
                                  label=label)
 
     temperatures = [50,100,150]
@@ -205,6 +210,7 @@ def fit_a_sled(juppers, data, error, sourcename, maxj=15):
                  "cm$^{{-2}}$".format(t, pars[1], pars[2]))
         sp.plotter.axis.plot(inds, temdencol(inds, *pars),
                              '-', alpha=0.5, linewidth=2, zorder=-10,
+                             color=colors[t],
                              label=label)
 
     sp.plotter.axis.set_xlabel("Rotational Level $J_U$")
